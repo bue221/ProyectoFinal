@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="main.java.biz">
+  <ClassDiagramComponents>
+    <Class name="NCarro" package="biz" visibility="public" xPosition="1003.0" yPosition="1394.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="placas"/>
+          <Argument type="String" name="nombreDelPropietario"/>
+          <Argument type="int" name="tipoDeVehiculo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="precioTarifa" returnType="double" visibility="package"/>
+      </Methods>
+    </Class>
+    <Class name="NCliente" package="biz" visibility="public" xPosition="666.0" yPosition="988.0">
+      <Fields>
+        <Field name="tipoDeVehiculo" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="documento"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="telefono"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getTipoDeVehiculo" returnType="String" visibility="public"/>
+        <Method name="setTipoDeVehiculo" returnType="void" visibility="public">
+          <Argument type="String" name="tipoDeVehiculo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="NEstacionamiento" package="biz" visibility="public" xPosition="1954.0" yPosition="1241.0">
+      <Fields>
+        <Field name="espacioTotal" type="int" visibility="private"/>
+        <Field name="espaciosOcupados" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="espacioTotal"/>
+          <Argument type="int" name="espaciosOcupados"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getEspacioTotal" returnType="int" visibility="public"/>
+        <Method name="setEspacioTotal" returnType="void" visibility="public">
+          <Argument type="int" name="espacioTotal"/>
+        </Method>
+        <Method name="getEspaciosOcupados" returnType="int" visibility="public"/>
+        <Method name="setEspaciosOcupados" returnType="void" visibility="public">
+          <Argument type="int" name="espaciosOcupados"/>
+        </Method>
+        <Method name="calcularDisponibilidad" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="NFactura" package="biz" visibility="public" xPosition="1039.0" yPosition="453.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="diaDeIngreso" type="Date" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getDiaDeIngreso" returnType="Date" visibility="public"/>
+        <Method name="setDiaDeIngreso" returnType="void" visibility="public">
+          <Argument type="Date" name="diaDeIngreso"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="calcularTarifa" returnType="double" visibility="public"/>
+        <Method name="calcularEntrada" returnType="Date" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="NLogin" package="biz" visibility="public" xPosition="535.0" yPosition="258.0">
+      <Fields>
+        <Field name="user" type="String" visibility="private"/>
+        <Field name="password" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="user"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getUser" returnType="String" visibility="public"/>
+        <Method name="setUser" returnType="void" visibility="public">
+          <Argument type="String" name="user"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="setPassword" returnType="void" visibility="public">
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="comprobar" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="NMoto" package="biz" visibility="public" xPosition="1479.0" yPosition="1410.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="placas"/>
+          <Argument type="String" name="nombreDelPropietario"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="precioTarifa" returnType="double" visibility="package"/>
+      </Methods>
+    </Class>
+    <Class name="NParqueadero" package="biz" visibility="public" xPosition="1910.0" yPosition="903.0">
+      <Fields>
+        <Field name="estacionamientos" type="ArrayList&lt;NEstacionamiento&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ArrayList&lt;NEstacionamiento&gt;" name="estacionamiento"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getEstacionamientos" returnType="ArrayList&lt;NEstacionamiento&gt;" visibility="public"/>
+        <Method name="setEstacionamientos" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;NEstacionamiento&gt;" name="estacionamientos"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="NPersona" package="biz" visibility="public" xPosition="492.0" yPosition="596.0">
+      <Fields>
+        <Field name="documento" type="String" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="telefono" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="documento"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="telefono"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getDocumento" returnType="String" visibility="public"/>
+        <Method name="setDocumento" returnType="void" visibility="public">
+          <Argument type="String" name="documento"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getTelefono" returnType="int" visibility="public"/>
+        <Method name="setTelefono" returnType="void" visibility="public">
+          <Argument type="int" name="telefono"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="NSede" package="biz" visibility="public" xPosition="1926.0" yPosition="347.0">
+      <Fields>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+        <Field name="tarifaMoto" type="double" visibility="private"/>
+        <Field name="tarifaCarro" type="double" visibility="private"/>
+        <Field name="parqueadero" type="NParqueadero" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="double" name="tarifaMoto"/>
+          <Argument type="double" name="tarifaCarro"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getX" returnType="int" visibility="public"/>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="x"/>
+        </Method>
+        <Method name="getY" returnType="int" visibility="public"/>
+        <Method name="setY" returnType="void" visibility="public">
+          <Argument type="int" name="y"/>
+        </Method>
+        <Method name="getTarifaMoto" returnType="double" visibility="public"/>
+        <Method name="setTarifaMoto" returnType="void" visibility="public">
+          <Argument type="double" name="tarifaMoto"/>
+        </Method>
+        <Method name="getTarifaCarro" returnType="double" visibility="public"/>
+        <Method name="setTarifaCarro" returnType="void" visibility="public">
+          <Argument type="double" name="tarifaCarro"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="NTrabajador" package="biz" visibility="public" xPosition="262.0" yPosition="959.0">
+      <Fields>
+        <Field name="cargo" type="String" visibility="private"/>
+        <Field name="horaTurno" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="documento"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="telefono"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getCargo" returnType="String" visibility="public"/>
+        <Method name="setCargo" returnType="void" visibility="public">
+          <Argument type="String" name="cargo"/>
+        </Method>
+        <Method name="getHoraTurno" returnType="String" visibility="public"/>
+        <Method name="setHoraTurno" returnType="void" visibility="public">
+          <Argument type="String" name="horaTurno"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="NVehiculo" package="biz" visibility="public" isAbstract="true" xPosition="1208.0" yPosition="856.0">
+      <Fields>
+        <Field name="placas" type="String" visibility="private"/>
+        <Field name="nombreDelPropietario" type="String" visibility="private"/>
+        <Field name="cliente" type="NCliente" visibility="private"/>
+        <Field name="tipoDeVehiculo" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="placas"/>
+          <Argument type="String" name="nombreDelPropietario"/>
+          <Argument type="int" name="tipoDeVehiculo"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="precioTarifa" returnType="double" visibility="package" isAbstract="true"/>
+        <Method name="getPlacas" returnType="String" visibility="public"/>
+        <Method name="setPlacas" returnType="void" visibility="public">
+          <Argument type="String" name="placas"/>
+        </Method>
+        <Method name="getNombreDelPropietario" returnType="String" visibility="public"/>
+        <Method name="setNombreDelPropietario" returnType="void" visibility="public">
+          <Argument type="String" name="nombreDelPropietario"/>
+        </Method>
+        <Method name="getTipoDeVehiculo" returnType="int" visibility="public"/>
+        <Method name="setTipoDeVehiculo" returnType="void" visibility="public">
+          <Argument type="int" name="tipoDeVehiculo"/>
+        </Method>
+        <Method name="getCliente" returnType="NCliente" visibility="public"/>
+        <Method name="setCliente" returnType="void" visibility="public">
+          <Argument type="NCliente" name="cliente"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="NPago" package="biz" visibility="public" xPosition="1556.0" yPosition="525.0">
+      <Methods>
+        <Method name="calcularTarifa" returnType="double" visibility="public"/>
+        <Method name="calcularEntrada" returnType="Date" visibility="public"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="biz.NFactura" target="biz.NPago"/>
+    <HasRelation name="cliente" source="biz.NVehiculo" target="biz.NCliente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="estacionamientos" source="biz.NParqueadero" target="biz.NEstacionamiento" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;NEstacionamiento&gt;"/>
+    <HasRelation name="factura" source="biz.NPersona" target="biz.NFactura" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="biz.NParqueadero" target="biz.NEstacionamiento" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="carro" source="biz.NEstacionamiento" target="biz.NCarro" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="biz.NTrabajador" target="biz.NPersona"/>
+    <IsRelation name="is" source="biz.NCarro" target="biz.NVehiculo"/>
+    <HasRelation name="moto" source="biz.NEstacionamiento" target="biz.NMoto" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="biz.NMoto" target="biz.NVehiculo"/>
+    <HasRelation name="parqueadero" source="biz.NSede" target="biz.NParqueadero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="biz.NVehiculo" target="biz.NCliente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="biz.NCliente" target="biz.NPersona"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
