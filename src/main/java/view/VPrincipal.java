@@ -9,8 +9,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -20,14 +18,16 @@ public class VPrincipal extends javax.swing.JFrame {
 
     VIngresar ingresar;
     VRetirar retirar;
-    VAcerca acerca;
+    VListar listar;
+    //VAcerca acerca;
+
     /**
      * Creates new form VPrincipal
      */
     public VPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        setSize(800,550);                
+        setSize(900,550);                
         
         ingresar = new VIngresar();
         ingresar.setBounds(300,0,473,400);
@@ -38,11 +38,17 @@ public class VPrincipal extends javax.swing.JFrame {
         add(retirar);
         retirar.setVisible(false);
         
+        listar = new VListar();
+        listar.setBounds(300,0,600,400);
+        add(listar);
+        listar.setVisible(false);
+/*
         acerca = new VAcerca();
         acerca.setBounds(300,0,473,400);
         add(acerca);
         acerca.setVisible(false);
         
+*/
     }
 
     /**
@@ -96,6 +102,11 @@ public class VPrincipal extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Listar Vehiculos");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(34, 44, 63));
         jButton4.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
@@ -175,12 +186,13 @@ public class VPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         ingresar.setVisible(false);
         retirar.setVisible(true);
-        acerca.setVisible(false);
+
+        listar.setVisible(false);
+        //acerca.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
+      System.exit(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
@@ -194,14 +206,23 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        ingresar.setVisible(true);
        retirar.setVisible(false);
-       acerca.setVisible(false);
+       listar.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ingresar.setVisible(false);
+       retirar.setVisible(false);
+       listar.setVisible(true);
+       //acerca.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+                                      
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
        ingresar.setVisible(false);
        retirar.setVisible(false);
-       acerca.setVisible(true);
+      // acerca.setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
+
 
     /**
      * @param args the command line arguments
