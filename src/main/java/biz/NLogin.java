@@ -3,10 +3,13 @@ package biz;
 public class NLogin {
 
     private String user;
-
     private String password;
-
+    private String realUser="demo";
+    private String realPassword="12345";
+    
     public NLogin(String user, String password) {
+        this.user = user;
+        this.password = password;
     }
 
     public String getUser() {
@@ -26,9 +29,10 @@ public class NLogin {
     }
 
     public boolean comprobar() {
-       if(user=="demo" && password=="12345"){
-           return true;
-       }
-       return false;
+        if(this.user == this.realUser && this.password == this.realPassword){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
