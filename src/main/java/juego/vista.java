@@ -1,8 +1,8 @@
 package juego;
 
 import java.awt.Color;
-import static javafx.scene.paint.Color.color;
-import static javafx.scene.paint.Color.color;
+//import static javafx.scene.paint.Color.color;
+//import static javafx.scene.paint.Color.color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import view.VLogin;
