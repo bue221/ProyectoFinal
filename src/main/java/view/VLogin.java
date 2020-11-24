@@ -206,7 +206,6 @@ public class VLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debes de ingresar informacion en todos los campos");
         }else{
             if(usuario.equals(user) && password.equals(pass)){
-                JOptionPane.showMessageDialog(this, "Datos correctos");
                 VPrincipal vista = new VPrincipal();
                 vista.setVisible(true);
                 this.dispose();
