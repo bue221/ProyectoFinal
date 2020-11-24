@@ -9,8 +9,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -21,6 +19,8 @@ public class VPrincipal extends javax.swing.JFrame {
     VIngresar ingresar;
     VRetirar retirar;
     VListar listar;
+    //VAcerca acerca;
+
     /**
      * Creates new form VPrincipal
      */
@@ -42,6 +42,13 @@ public class VPrincipal extends javax.swing.JFrame {
         listar.setBounds(300,0,600,400);
         add(listar);
         listar.setVisible(false);
+/*
+        acerca = new VAcerca();
+        acerca.setBounds(300,0,473,400);
+        add(acerca);
+        acerca.setVisible(false);
+        
+*/
     }
 
     /**
@@ -142,6 +149,11 @@ public class VPrincipal extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Acerca del proyecto");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("ir al repo");
@@ -174,12 +186,13 @@ public class VPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         ingresar.setVisible(false);
         retirar.setVisible(true);
+
         listar.setVisible(false);
+        //acerca.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
+      System.exit(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
@@ -200,7 +213,16 @@ public class VPrincipal extends javax.swing.JFrame {
         ingresar.setVisible(false);
        retirar.setVisible(false);
        listar.setVisible(true);
+       //acerca.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
+                                      
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+       ingresar.setVisible(false);
+       retirar.setVisible(false);
+      // acerca.setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
+
 
     /**
      * @param args the command line arguments

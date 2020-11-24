@@ -16,7 +16,7 @@
         <Method name="precioTarifa" returnType="double" visibility="package"/>
       </Methods>
     </Class>
-    <Class name="NCliente" package="biz" visibility="public" xPosition="666.0" yPosition="988.0">
+    <Class name="NCliente" package="biz" visibility="public" xPosition="758.0" yPosition="972.0">
       <Fields>
         <Field name="tipoDeVehiculo" type="String" visibility="private"/>
       </Fields>
@@ -34,7 +34,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="NEstacionamiento" package="biz" visibility="public" xPosition="1954.0" yPosition="1241.0">
+    <Class name="NEstacionamiento" package="biz" visibility="public" xPosition="1948.0" yPosition="1343.0">
       <Fields>
         <Field name="espacioTotal" type="int" visibility="private"/>
         <Field name="espaciosOcupados" type="int" visibility="private"/>
@@ -101,7 +101,7 @@
         <Method name="comprobar" returnType="boolean" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="NMoto" package="biz" visibility="public" xPosition="1479.0" yPosition="1410.0">
+    <Class name="NMoto" package="biz" visibility="public" xPosition="1518.0" yPosition="1249.0">
       <Fields/>
       <Constructors>
         <Constructor visibility="public"/>
@@ -266,18 +266,18 @@
     </Interface>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="biz.NFactura" target="biz.NPago"/>
-    <HasRelation name="cliente" source="biz.NVehiculo" target="biz.NCliente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="estacionamientos" source="biz.NParqueadero" target="biz.NEstacionamiento" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;NEstacionamiento&gt;"/>
-    <HasRelation name="factura" source="biz.NPersona" target="biz.NFactura" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation source="biz.NParqueadero" target="biz.NEstacionamiento" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="carro" source="biz.NEstacionamiento" target="biz.NCarro" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="biz.NTrabajador" target="biz.NPersona"/>
     <IsRelation name="is" source="biz.NCarro" target="biz.NVehiculo"/>
-    <HasRelation name="moto" source="biz.NEstacionamiento" target="biz.NMoto" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="biz.NMoto" target="biz.NVehiculo"/>
-    <HasRelation name="parqueadero" source="biz.NSede" target="biz.NParqueadero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="biz.NVehiculo" target="biz.NCliente" sourceCardinality="1..1" targetCardinality="1..1"/>
     <IsRelation name="is" source="biz.NCliente" target="biz.NPersona"/>
+    <UseRelation source="biz.NVehiculo" target="biz.NCliente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="biz.NMoto" target="biz.NVehiculo"/>
+    <IsRelation name="is" source="biz.NTrabajador" target="biz.NPersona"/>
+    <HasRelation name="carro" source="biz.NEstacionamiento" target="biz.NCarro" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="moto" source="biz.NEstacionamiento" target="biz.NMoto" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="parqueadero" source="biz.NSede" target="biz.NParqueadero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cliente" source="biz.NVehiculo" target="biz.NCliente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="biz.NParqueadero" target="biz.NEstacionamiento" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="biz.NFactura" target="biz.NPago"/>
+    <HasRelation name="factura" source="biz.NPersona" target="biz.NFactura" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="estacionamientos" source="biz.NParqueadero" target="biz.NEstacionamiento" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;NEstacionamiento&gt;"/>
   </ClassDiagramRelations>
 </ClassDiagram>

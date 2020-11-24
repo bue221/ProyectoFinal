@@ -27,12 +27,17 @@ public class NLogin {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public boolean comprobar() {
-        if(this.user == this.realUser && this.password == this.realPassword){
-            return true;
-        }else{
-            return false;
-        }
+    public String getRealUser(){
+        return realUser;
     }
+    public void setRealUser(String realUser){
+        this.realUser = realUser;
+    }
+    public String getRealPassword(){
+        return realPassword;
+    }
+    public void setRealPassword(String realPassword){
+        this.realPassword = realPassword;
+    }
+  
 }
