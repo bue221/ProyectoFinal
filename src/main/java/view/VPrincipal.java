@@ -19,7 +19,7 @@ public class VPrincipal extends javax.swing.JFrame {
     VIngresar ingresar;
     VRetirar retirar;
     VListar listar;
-    //VAcerca acerca;
+    VAcerca acerca;
 
     /**
      * Creates new form VPrincipal
@@ -42,13 +42,10 @@ public class VPrincipal extends javax.swing.JFrame {
         listar.setBounds(300,0,600,400);
         add(listar);
         listar.setVisible(false);
-/*
         acerca = new VAcerca();
         acerca.setBounds(300,0,473,400);
         add(acerca);
         acerca.setVisible(false);
-        
-*/
     }
 
     /**
@@ -188,7 +185,7 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(true);
 
         listar.setVisible(false);
-        //acerca.setVisible(false);
+        acerca.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -213,14 +210,14 @@ public class VPrincipal extends javax.swing.JFrame {
         ingresar.setVisible(false);
        retirar.setVisible(false);
        listar.setVisible(true);
-       //acerca.setVisible(false);
+       acerca.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
                                       
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
        ingresar.setVisible(false);
        retirar.setVisible(false);
-      // acerca.setVisible(true);
+       acerca.setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
 
 
