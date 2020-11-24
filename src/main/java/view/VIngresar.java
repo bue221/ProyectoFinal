@@ -5,24 +5,57 @@
  */
 package view;
 
+import biz.NCarro;
+import biz.NVehiculo;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import util.Util;
 
 /**
  *
  * @author USER
  */
 public class VIngresar extends javax.swing.JPanel {
+     ////NO SE CAMBIA
+    //Gestionar persistencia
+    final String NOM_ARCHIVO = "datosVehiculo.dat";
+    //Gestionar los objetos dentro del formulario
+    ArrayList<Object> objetos = new ArrayList<>();
+    //Realizar la serialización y des-serialización de objetos
+    //También llevar el listado
+    Util util = new Util();
 
+    //Gestionar el objeto actual
+    //SE DEBE CAMBIAR EL TIPO DE OBJETO, en este caso es PUNTO.
+    NVehiculo objeto;
     /**
      * Creates new form VIngresar
      */
     public VIngresar() {
         initComponents();
     }
+    
+    private void getObjetos() {
 
+        //// SE DEBE MODIFICAR
+        tfPropietario.setText("");
+        tfPlaca.setText("");
+
+        //SE MODIFCA CON LA CLASE QUE SE ESTÉ TRABAJANDO, cambiar Punto() por dicha clase
+        objeto = new NCarro();               
+
+        //NO SE MODIFICA
+        if (util.desSerializar(NOM_ARCHIVO) != null) {
+            objetos = (ArrayList) util.desSerializar(NOM_ARCHIVO);
+            // Modifica el título Puntos por el que corresponda
+            //String[] t = {"Listado de casas"};
+            //this.listado.setModel(new DefaultTableModel(util.setJTable(objetos), t));
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,7 +202,13 @@ public class VIngresar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        objeto.setNombreDelPropietario(tfPropietario.getText());
+        objeto.setPlacas(tfPlaca.getText());
 
+        objetos.remove(objeto);
+        objetos.add(objeto);
+        util.serializar(NOM_ARCHIVO, objetos);
+        getObjetos();
     }//GEN-LAST:event_button1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
