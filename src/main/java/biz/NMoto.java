@@ -1,6 +1,8 @@
 package biz;
 
-public class NMoto extends NVehiculo {
+import java.io.Serializable;
+
+public class NMoto extends NVehiculo implements Serializable{
 
     public NMoto() {
     }

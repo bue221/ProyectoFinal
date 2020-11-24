@@ -1,6 +1,8 @@
 package biz;
 
-public class NCarro extends NVehiculo {
+import java.io.Serializable;
+
+public class NCarro extends NVehiculo implements Serializable {
 
     public NCarro() {
     }
