@@ -22,7 +22,7 @@ import util.Util;
 public class VIngresar extends javax.swing.JPanel {
      ////NO SE CAMBIA
     //Gestionar persistencia
-    final String NOM_ARCHIVO = "datosVehiculo.dat";
+    final String NOM_ARCHIVO = "datosVehiculo.txt";
     //Gestionar los objetos dentro del formulario
     ArrayList<Object> objetos = new ArrayList<>();
     //Realizar la serialización y des-serialización de objetos
@@ -31,12 +31,13 @@ public class VIngresar extends javax.swing.JPanel {
 
     //Gestionar el objeto actual
     //SE DEBE CAMBIAR EL TIPO DE OBJETO, en este caso es PUNTO.
-    NVehiculo objeto;
+    NCarro objeto;
     /**
      * Creates new form VIngresar
      */
     public VIngresar() {
         initComponents();
+        getObjetos();
     }
     
     private void getObjetos() {
@@ -45,16 +46,17 @@ public class VIngresar extends javax.swing.JPanel {
         tfPropietario.setText("");
         tfPlaca.setText("");
 
-        //SE MODIFCA CON LA CLASE QUE SE ESTÉ TRABAJANDO, cambiar Punto() por dicha clase
         objeto = new NCarro();               
 
         //NO SE MODIFICA
+        /*
         if (util.desSerializar(NOM_ARCHIVO) != null) {
             objetos = (ArrayList) util.desSerializar(NOM_ARCHIVO);
             // Modifica el título Puntos por el que corresponda
             //String[] t = {"Listado de casas"};
             //this.listado.setModel(new DefaultTableModel(util.setJTable(objetos), t));
         }
+        */
     }
     /**
      * This method is called from within the constructor to initialize the form.
