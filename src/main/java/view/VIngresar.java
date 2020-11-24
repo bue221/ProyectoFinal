@@ -207,7 +207,7 @@ public class VIngresar extends javax.swing.JPanel {
         objeto.setNombreDelPropietario(tfPropietario.getText());
         objeto.setPlacas(tfPlaca.getText());
 
-        objetos.remove(objeto);
+        //objetos.remove(objeto);
         objetos.add(objeto);
         util.serializar(NOM_ARCHIVO, objetos);
         getObjetos();

@@ -250,7 +250,10 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       
+       ingresar.setVisible(true);
+       retirar.setVisible(false);
+       acerca.setVisible(false);
+       trabajador.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnTrabajadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrabajadorMouseClicked
