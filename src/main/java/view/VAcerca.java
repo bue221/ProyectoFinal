@@ -58,7 +58,7 @@ public class VAcerca extends javax.swing.JPanel {
         jLabel5.setText("por la sede donde se ocupe el servicio");
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel6.setText("Andrez Camilo Plaza ");
+        jLabel6.setText("Andres Camilo Plaza ");
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
