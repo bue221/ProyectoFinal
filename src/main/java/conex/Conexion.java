@@ -3,6 +3,7 @@ package conex;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -22,4 +23,10 @@ public class Conexion {
     public Connection getConnection(){
         return con;
     }
+
+    public PreparedStatement prepareStatement(String selectfrom_Trabajador_where_Id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }
