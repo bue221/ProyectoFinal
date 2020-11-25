@@ -9,6 +9,7 @@ import bizSql.NVehiculo;
 import conex.Conexion;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.ImageIcon;
@@ -47,7 +48,7 @@ public class VListar extends javax.swing.JPanel {
            cn=con.getConnection();
            st=cn.createStatement();
            rs=st.executeQuery(sql);          
-           Object[]vehiculos = new Object[5];
+           Object[]vehiculos = new Object[6];
            modelo=(DefaultTableModel)TablaDatos.getModel();
            while (rs.next()){
                vehiculos[0]= rs.getString("Id");
@@ -55,6 +56,7 @@ public class VListar extends javax.swing.JPanel {
                vehiculos[2]= rs.getString("NombrePropietario");
                vehiculos[3]= rs.getString("tipo");
                vehiculos[4] = rs.getDate("fecha");
+               vehiculos[5] = rs.getString("foto");
                modelo.addRow(vehiculos);
            }
            TablaDatos.setModel(modelo);
@@ -132,9 +134,17 @@ public class VListar extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Placa", "Propietario", "Tipo de Vehiculo", "Hora Entrada", "Hora Salida", "Pago"
+                "Id", "Propietario", "Placa", "Tipo de Vehiculo", "Hora Entrada", "foto", "Pago"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         TablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaDatosMouseClicked(evt);
@@ -148,6 +158,8 @@ public class VListar extends javax.swing.JPanel {
 
         jLabel2.setText("Placa");
 
+        tfFecha.setEditable(false);
+        tfFecha.setEnabled(false);
         tfFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfFechaActionPerformed(evt);
@@ -215,15 +227,17 @@ public class VListar extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(161, 161, 161)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel1)))
+                                    .addGap(221, 221, 221)
+                                    .addComponent(jLabel6))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(12, 12, 12)
                                     .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jLabel1)
+                                            .addGap(22, 22, 22)))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(tfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
@@ -250,10 +264,9 @@ public class VListar extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -266,6 +279,9 @@ public class VListar extends javax.swing.JPanel {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
@@ -280,14 +296,14 @@ public class VListar extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4))
                             .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnNuevo))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -335,15 +351,15 @@ public class VListar extends javax.swing.JPanel {
             id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
             String nombre = (String) TablaDatos.getValueAt(fila, 1);
             String cargo = (String) TablaDatos.getValueAt(fila, 2);
-            String turno = (String) TablaDatos.getValueAt(fila, 4);
-            String hora =  (String) TablaDatos.getValueAt(fila, 5);
+            String turno = (String) TablaDatos.getValueAt(fila, 5);
+            //Date hora =  (Date) TablaDatos.getValueAt(fila, 4);            
 
             txtId.setText("" + id);
             tfPropietario.setText(nombre);
             tfPlaca.setText(cargo);
             txtRuta.setText(turno);
             lbfoto.setIcon(new ImageIcon(turno));
-            tfFecha.setText(hora);
+            //tfFecha.setText((hora));
         }
     }//GEN-LAST:event_TablaDatosMouseClicked
     
