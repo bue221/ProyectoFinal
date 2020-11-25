@@ -1,20 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package view;
 
+package view;
+import bizSql.NLogin;
 import conex.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author davida
- */
+
 public class VRegistrarUsuario extends javax.swing.JFrame {
 
     
@@ -27,7 +20,7 @@ public class VRegistrarUsuario extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
+    
     void Agregar(){
        String Nombre=txtNombre.getText();
        String Apellido=txtApellidos.getText();
@@ -38,14 +31,11 @@ public class VRegistrarUsuario extends javax.swing.JFrame {
        if(Nombre.equals("") || Apellido.equals("") || Correo.equals("") || Contraseña.equals("")){
            JOptionPane.showMessageDialog(null, "Debes ingresar informacion en todos los campos");
        }else{
-           String sql="insert into Usuario(Nombre,Apellido,Correo,Contraseña) values ('"+Nombre+"','"+Apellido+"','"+Correo+"','"+Contraseña+"')";
-           try{
-               cn=con.getConnection();
-               st=cn.createStatement();
-               st.executeUpdate(sql);
-               JOptionPane.showMessageDialog(null, "Usuario agregado");
-           }catch (Exception e){
-               System.err.println("Error:" +e);
+           NLogin login = new NLogin(Nombre, Apellido, Correo, Contraseña);
+           if(login.agregar()){
+               JOptionPane.showMessageDialog(null, "Usuario creado con exito");
+           }else{
+               System.err.println("Error");
            }
        }
        
