@@ -12,8 +12,10 @@ public class NLogin {
     private int Id;
     private String Nombre;
     private String Apellido;
+    private String Cargo = "Cliente";
     private String Correo;
     private String Contraseña;
+    
     
     public NLogin(){
         
@@ -24,11 +26,19 @@ public class NLogin {
         this.Contraseña = Contraseña;
     }
 
-    public NLogin(String Nombre, String Apellido, String Correo, String Contraseña) {
+    public NLogin(String Nombre, String Apellido,String Cargo, String Correo, String Contraseña) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.Correo = Correo;
         this.Contraseña = Contraseña;
+    }
+
+    public String getCargo() {
+        return Cargo;
+    }
+
+    public void setCargo(String Cargo) {
+        this.Cargo = Cargo;
     }
 
     public int getId() {
@@ -73,7 +83,7 @@ public class NLogin {
     
     public boolean agregar() {
         try {
-            String query = "insert into Usuario(Nombre,Apellido,Correo,Contraseña) values ('" + Nombre + "','" + Apellido + "','" + Correo + "','" + Contraseña + "')";
+            String query = "insert into Usuario(Nombre,Apellido,Cargo,Correo,Contraseña) values ('" + Nombre + "','" + Apellido + "','"+Cargo+"','" + Correo + "','" + Contraseña + "')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 

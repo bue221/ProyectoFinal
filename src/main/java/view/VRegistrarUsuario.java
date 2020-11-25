@@ -26,12 +26,12 @@ public class VRegistrarUsuario extends javax.swing.JFrame {
        String Apellido=txtApellidos.getText();
        String Correo=txtUsuario.getText();
        String Contraseña=txtContraseña.getText();
-       
+       String Cargo = "Cliente";       
        
        if(Nombre.equals("") || Apellido.equals("") || Correo.equals("") || Contraseña.equals("")){
            JOptionPane.showMessageDialog(null, "Debes ingresar informacion en todos los campos");
        }else{
-           NLogin login = new NLogin(Nombre, Apellido, Correo, Contraseña);
+           NLogin login = new NLogin(Nombre, Apellido, Cargo, Correo, Contraseña);
            if(login.agregar()){
                JOptionPane.showMessageDialog(null, "Usuario creado con exito");
            }else{
