@@ -13,6 +13,7 @@ Turno varchar(60),
 Correo varchar(90),
 Contraseña varchar(15)
 );
+select*from Usuario;
 
 create table Vehiculos
 (
