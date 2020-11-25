@@ -5,6 +5,10 @@
  */
 package view;
 
+import bizSql.NVehiculo;
+import java.sql.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author bue221
@@ -31,8 +35,16 @@ public class VRetirar extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         button1 = new java.awt.Button();
+        lbfoto = new javax.swing.JLabel();
 
         tfPlacaRetiro.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
+        tfPlacaRetiro.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                tfPlacaRetiroInputMethodTextChanged(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 16)); // NOI18N
@@ -50,6 +62,8 @@ public class VRetirar extends javax.swing.JPanel {
             }
         });
 
+        lbfoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,14 +74,17 @@ public class VRetirar extends javax.swing.JPanel {
                         .addGap(90, 90, 90)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(223, 223, 223)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
-                        .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(170, 170, 170)
+                        .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(188, 188, 188)
+                        .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -75,25 +92,45 @@ public class VRetirar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addGap(39, 39, 39)
+                .addGap(23, 23, 23)
+                .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(20, 20, 20)
                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-
+        NVehiculo negocio = new NVehiculo();
+        NVehiculo data = negocio.buscar(tfPlacaRetiro.getText());
+        
+        int id = data.getId();
+        String foto = data.getFoto();
+        Date fechaEntrada = data.getFechaEntrada();
+        
+        JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo"+id);
     }//GEN-LAST:event_button1ActionPerformed
+
+    private void tfPlacaRetiroInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tfPlacaRetiroInputMethodTextChanged
+        NVehiculo negocio = new NVehiculo();
+        NVehiculo data = negocio.buscar(tfPlacaRetiro.getText());
+        
+        int id = data.getId();
+        String foto = data.getFoto();
+        Date fechaEntrada = data.getFechaEntrada();
+        lbfoto.setIcon(new ImageIcon(foto));
+    }//GEN-LAST:event_tfPlacaRetiroInputMethodTextChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lbfoto;
     private javax.swing.JTextField tfPlacaRetiro;
     // End of variables declaration//GEN-END:variables
 }

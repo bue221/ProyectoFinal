@@ -27,6 +27,7 @@ fecha dateTime default now()
 
 select*from Vehiculos
 insert into Vehiculos (NombrePropietario,placa, foto) values ("Camilo Plaza", "OBH222", "C:\Users\USER\OneDrive\Fotos\Fondos\fondo2.jpg", "carro")
+
 create table Usuario
 (
 Id int auto_increment primary key,
@@ -37,3 +38,13 @@ Contraseña varchar(20)
 );
 
 select*from Usuario;
+
+create table Sede
+(
+Id int auto_increment primary key,
+Nombre varchar(50),
+Espacios int,
+Tarifa double
+)
+
+select * from Sede

@@ -28,7 +28,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public VPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        setSize(900, 550);
+        setSize(960, 600);
 
         retirar = new VRetirar();
         retirar.setBounds(300, 0, 473, 400);

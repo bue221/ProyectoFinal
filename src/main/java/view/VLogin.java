@@ -213,8 +213,9 @@ public class VLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JbtIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtIngresarActionPerformed
-             
-        
+             VPrincipal registro = new VPrincipal();
+             registro.setVisible(true);
+             this.dispose();        
     }//GEN-LAST:event_JbtIngresarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
