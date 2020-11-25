@@ -36,6 +36,14 @@ public class NVehiculo {
         this.tipo = tipo;
     }
 
+    public NVehiculo(String nombrePropietario, String foto, String tipo, Date fechaEntrada, int id) {
+        this.nombrePropietario = nombrePropietario;
+        this.foto = foto;
+        this.tipo = tipo;
+        this.fechaEntrada = fechaEntrada;
+        this.id = id;
+    }
+
     public String getNombrePropietario() {
         return nombrePropietario;
     }
@@ -129,9 +137,9 @@ public class NVehiculo {
         }
     }
     
-    public NVehiculo buscar(String placa) {
+    public NVehiculo buscar(int id) {
         try {
-            String sql = "select * from Vehiculos placa="+placa;
+            String sql = "select * from Vehiculos where id="+id;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet res = st.executeQuery();
