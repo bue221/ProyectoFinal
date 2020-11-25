@@ -15,6 +15,18 @@ select*from Trabajador;
 insert into Trabajador (Nombre, Cargo, Turno) values ("Camilo Plaza","Administrador","Lun-Vie: 7:00am-2:00pm");
 insert into Trabajador (Nombre, Cargo, Turno) values ("David Castellanos","Vigilante","Lun-Vie: 5:00am-3:00pm");
 
+<<<<<<< HEAD
+create table Usuario
+(
+Id int auto_increment primary key,
+Nombre varchar(50),
+Apellido varchar(50),
+Correo varchar(90),
+Contraseña varchar(20)
+);
+
+select*from Usuario;
+=======
 create table Vehiculos
 (
 Id int auto_increment primary key,
@@ -27,4 +39,5 @@ fecha dateTime default now()
 
 select*from Vehiculos
 insert into Vehiculos (NombrePropietario,placa, foto) values ("Camilo Plaza", "OBH222", "C:\Users\USER\OneDrive\Fotos\Fondos\fondo2.jpg", "carro")
+>>>>>>> 02dd6918866db6ca3133ced2833f8104406b8f0d
 
