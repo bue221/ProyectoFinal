@@ -5,18 +5,51 @@
  */
 package view;
 
+import biz.NCarro;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import util.Util;
+
 /**
  *
  * @author bue221
  */
 public class VListar extends javax.swing.JPanel {
+    ////NO SE CAMBIA
+    //Gestionar persistencia
+    final String NOM_ARCHIVO = "datosVehiculo.txt";
+    //Gestionar los objetos dentro del formulario
+    ArrayList<Object> objetos = new ArrayList<>();
+    //Realizar la serialización y des-serialización de objetos
+    //También llevar el listado
+    Util util = new Util();
 
+    //Gestionar el objeto actual
+    //SE DEBE CAMBIAR EL TIPO DE OBJETO, en este caso es PUNTO.
+    /**
+     * Creates new form VIngresar
+     */
     /**
      * Creates new form VListar
      */
     public VListar() {
         initComponents();
+        getObjetos();
     }
+    
+    
+    //METODO que limpia, inicializa botones y llena listado
+    private void getObjetos() {
+        //NO SE MODIFICA
+        if (util.desSerializar(NOM_ARCHIVO) != null) {
+            objetos = (ArrayList) util.desSerializar(NOM_ARCHIVO);
+            System.out.print(objetos);
+            // Modifica el título Puntos por el que corresponda
+            String[] t = {"Listado de casas"};
+            this.listado.setModel(new DefaultTableModel(util.setJTable(objetos),t));
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,7 +65,7 @@ public class VListar extends javax.swing.JPanel {
         cbMoto = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVehiculos = new javax.swing.JTable();
+        listado = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         rbEnParq = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
@@ -53,7 +86,7 @@ public class VListar extends javax.swing.JPanel {
 
         jLabel4.setText("Fecha");
 
-        tblVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+        listado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -61,7 +94,7 @@ public class VListar extends javax.swing.JPanel {
                 "Id", "Placa", "Propietario", "Tipo de Vehiculo", "Hora Entrada", "Hora Salida", "Pago"
             }
         ));
-        jScrollPane1.setViewportView(tblVehiculos);
+        jScrollPane1.setViewportView(listado);
 
         jLabel5.setText("Tipo Vehiculo");
 
@@ -115,6 +148,30 @@ public class VListar extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(155, 155, 155))
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(btnBuscar)
+                        .addGap(62, 62, 62)
+                        .addComponent(jButton1)))
+                .addContainerGap(207, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(cbAuto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -124,33 +181,10 @@ public class VListar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbFueraParq)
                 .addGap(32, 32, 32))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(79, 79, 79)
-                                        .addComponent(jLabel4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(50, 50, 50)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(btnBuscar)
-                        .addGap(62, 62, 62)
-                        .addComponent(jButton1)))
-                .addContainerGap(61, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +202,7 @@ public class VListar extends javax.swing.JPanel {
                     .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,9 +251,9 @@ public class VListar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable listado;
     private javax.swing.JRadioButton rbEnParq;
     private javax.swing.JRadioButton rbFueraParq;
-    private javax.swing.JTable tblVehiculos;
     private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfPropietario;
     // End of variables declaration//GEN-END:variables

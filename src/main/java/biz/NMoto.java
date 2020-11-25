@@ -7,8 +7,8 @@ public class NMoto extends NVehiculo implements Serializable{
     public NMoto() {
     }
 
-    public NMoto(String placas, String nombreDelPropietario) {
-        super(placas, nombreDelPropietario, 2);
+    public NMoto(String placas, String nombreDelPropietario, NCliente cliente, String foto, int tipoDeVehiculo) {
+        super(placas, nombreDelPropietario, cliente, foto, tipoDeVehiculo);
     }
     
     @Override

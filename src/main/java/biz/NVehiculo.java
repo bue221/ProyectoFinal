@@ -5,12 +5,14 @@ public abstract class NVehiculo {
     private String placas;
     private String nombreDelPropietario;
     private NCliente cliente;
+    private String foto;
     private int tipoDeVehiculo;//varia entre 1(carro) y 2(moto)
 
-    public NVehiculo(String placas, String nombreDelPropietario, int tipoDeVehiculo) {
+    public NVehiculo(String placas, String nombreDelPropietario, NCliente cliente, String foto, int tipoDeVehiculo) {
         this.placas = placas;
         this.nombreDelPropietario = nombreDelPropietario;
-        this.cliente = new NCliente("1001202021",nombreDelPropietario,123);
+        this.cliente = cliente;
+        this.foto = foto;
         this.tipoDeVehiculo = tipoDeVehiculo;
     }
 
@@ -51,4 +53,12 @@ public abstract class NVehiculo {
         this.cliente = cliente;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+    
 }

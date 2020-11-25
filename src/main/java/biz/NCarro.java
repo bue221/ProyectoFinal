@@ -7,8 +7,13 @@ public class NCarro extends NVehiculo implements Serializable {
     public NCarro() {
     }
 
-    public NCarro(String placas, String nombreDelPropietario, int tipoDeVehiculo) {
-        super(placas, nombreDelPropietario, 1);
+    public NCarro(String placas, String nombreDelPropietario, NCliente cliente, String foto, int tipoDeVehiculo) {
+        super(placas, nombreDelPropietario, cliente, foto, tipoDeVehiculo);
+    }
+     
+    @Override
+    public String toString() {
+        return ""+this.getPlacas()+""+this.getNombreDelPropietario()+"";
     }
 
     @Override

@@ -31,11 +31,11 @@ public class VPrincipal extends javax.swing.JFrame {
         setSize(900,550);                
         
         ingresar = new VIngresar();
-        ingresar.setBounds(300,0,473,400);
+        ingresar.setBounds(300,0,600,400);
         add(ingresar);
         
         retirar = new VRetirar();
-        retirar.setBounds(300,0,473,400);
+        retirar.setBounds(300,0,600,400);
         add(retirar);
         retirar.setVisible(false);
         
@@ -45,7 +45,7 @@ public class VPrincipal extends javax.swing.JFrame {
         listar.setVisible(false);
         
         acerca = new VAcerca();
-        acerca.setBounds(300,0,473,400);
+        acerca.setBounds(300,0,600,400);
         add(acerca);
         acerca.setVisible(false);
         
@@ -230,11 +230,12 @@ public class VPrincipal extends javax.swing.JFrame {
        ingresar.setVisible(true);
        retirar.setVisible(false);
        listar.setVisible(false);
-        trabajador.setVisible(false);
+       acerca.setVisible(false);
+       trabajador.setVisible(false);
     }//GEN-LAST:event_btnTrabajadorActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ingresar.setVisible(false);
+       ingresar.setVisible(false);
        retirar.setVisible(false);
        listar.setVisible(true);
        acerca.setVisible(false);
@@ -245,6 +246,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
        ingresar.setVisible(false);
        retirar.setVisible(false);
+       listar.setVisible(false);
        acerca.setVisible(true);
         trabajador.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
@@ -253,6 +255,7 @@ public class VPrincipal extends javax.swing.JFrame {
        ingresar.setVisible(true);
        retirar.setVisible(false);
        acerca.setVisible(false);
+       listar.setVisible(false);
        trabajador.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
