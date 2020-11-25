@@ -5,19 +5,94 @@
  */
 package view;
 
+import bizSql.NVehiculo;
+import conex.Conexion;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author bue221
  */
 public class VListar extends javax.swing.JPanel {
-
+    
+    //mysql
+    Conexion con=new Conexion();
+    Connection cn;
+    Statement st;
+    ResultSet rs;
+    DefaultTableModel modelo;
+    //id y instancia del negocio
+    int id;
+    NVehiculo negocio = new NVehiculo();
+    
     /**
      * Creates new form VListar
      */
     public VListar() {
-        initComponents();
+        initComponents();        
+        listar();
     }
-
+    
+     void listar(){
+       String sql="Select * from Vehiculos";
+       try{
+           cn=con.getConnection();
+           st=cn.createStatement();
+           rs=st.executeQuery(sql);          
+           Object[]vehiculos = new Object[5];
+           modelo=(DefaultTableModel)TablaDatos.getModel();
+           while (rs.next()){
+               vehiculos[0]= rs.getString("Id");
+               vehiculos[1]= rs.getString("placa");
+               vehiculos[2]= rs.getString("NombrePropietario");
+               vehiculos[3]= rs.getString("tipo");
+               vehiculos[4] = rs.getDate("fecha");
+               modelo.addRow(vehiculos);
+           }
+           TablaDatos.setModel(modelo);
+       }catch (Exception e){
+           System.out.print(e);
+       }
+   }
+   
+   void Agregar(){
+       //variables
+       String propietario=tfPropietario.getText();
+       String placa=tfPlaca.getText();
+       String foto=txtRuta.getText();       
+       String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
+       
+       if(propietario.equals("")|| placa.equals("") || foto.equals("") || tipo.equals("Seleccione")){
+            JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
+            limpiartabla();
+        }else{
+           NVehiculo aja = new NVehiculo( propietario, placa, foto, tipo );           
+           if(aja.agregar()){
+               JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");
+               limpiartabla();
+           }else{
+                System.err.println("Error");
+           }
+       }
+       
+   }
+   
+   void limpiartabla(){
+       for(int i=1;i<=TablaDatos.getRowCount();i++){
+            i=i-i;
+           modelo.removeRow(i);
+          
+       }
+   }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,33 +102,32 @@ public class VListar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbAuto = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
-        cbMoto = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVehiculos = new javax.swing.JTable();
+        TablaDatos = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        rbEnParq = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
-        rbFueraParq = new javax.swing.JRadioButton();
         tfPlaca = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         tfPropietario = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-
-        cbAuto.setText("Automovil");
+        tfFecha = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        lbfoto = new javax.swing.JLabel();
+        txtRuta = new javax.swing.JTextField();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        comboTipo = new javax.swing.JComboBox<>();
+        txtId = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel3.setText("Propietario");
 
-        cbMoto.setText("Motocicleta");
-
         jLabel4.setText("Fecha");
 
-        tblVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+        TablaDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -61,166 +135,283 @@ public class VListar extends javax.swing.JPanel {
                 "Id", "Placa", "Propietario", "Tipo de Vehiculo", "Hora Entrada", "Hora Salida", "Pago"
             }
         ));
-        jScrollPane1.setViewportView(tblVehiculos);
+        TablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaDatosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TablaDatos);
 
         jLabel5.setText("Tipo Vehiculo");
 
-        rbEnParq.setText("En parqueadero");
-
         jLabel1.setText("Buscar Vehiculos");
-
-        rbFueraParq.setText("Fuera de parqueadero");
-        rbFueraParq.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbFueraParqActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Ubicacion del vehiculo");
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Cierre");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Placa");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        tfFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                tfFechaActionPerformed(evt);
             }
         });
+
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel6.setText("Foto:");
+
+        jButton4.setText("Buscar foto...");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        lbfoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setText("Agregar");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Carro", "Moto" }));
+
+        txtId.setEditable(false);
+        txtId.setEnabled(false);
+
+        jLabel7.setText("Id");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(247, 247, 247))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(155, 155, 155))
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(cbAuto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbMoto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rbEnParq)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbFueraParq)
-                .addGap(32, 32, 32))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(79, 79, 79)
-                                        .addComponent(jLabel4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(50, 50, 50)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(btnBuscar)
-                        .addGap(62, 62, 62)
-                        .addComponent(jButton1)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                        .addComponent(btnNuevo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(161, 161, 161)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel1)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(12, 12, 12)
+                                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel7))
+                            .addGap(26, 26, 26)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(249, 249, 249)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButton4)))
+                                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(4, 4, 4)
                 .addComponent(jLabel1)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(tfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4))
+                            .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(cbAuto)
-                    .addComponent(cbMoto)
-                    .addComponent(rbEnParq)
-                    .addComponent(rbFueraParq))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscar)
-                    .addComponent(jButton1))
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnNuevo))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rbFueraParqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFueraParqActionPerformed
+    private void tfFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFechaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rbFueraParqActionPerformed
+    }//GEN-LAST:event_tfFechaActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //selecciona ruta absoluta de la imagen
+        JFileChooser jf = new JFileChooser();
+        FileNameExtensionFilter fil = new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif");
+        jf.setFileFilter(fil);
+        jf.setCurrentDirectory(new File("Fotos"));
+        int el = jf.showOpenDialog(this);
+        if(el == JFileChooser.APPROVE_OPTION){
+            txtRuta.setText(jf.getSelectedFile().getAbsolutePath());
+            lbfoto.setIcon(new ImageIcon(jf.getSelectedFile().getAbsolutePath()));
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        modificar();
+        listar();
+        nuevo();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        eliminar();
+        listar();
+        nuevo();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        Agregar();
+        listar();
+        nuevo();
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void TablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDatosMouseClicked
+        int fila = TablaDatos.getSelectedRow();
+        
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Vehiculo no seleccionado");
+        } else {
+            id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
+            String nombre = (String) TablaDatos.getValueAt(fila, 1);
+            String cargo = (String) TablaDatos.getValueAt(fila, 2);
+            String turno = (String) TablaDatos.getValueAt(fila, 4);
+            String hora =  (String) TablaDatos.getValueAt(fila, 5);
+
+            txtId.setText("" + id);
+            tfPropietario.setText(nombre);
+            tfPlaca.setText(cargo);
+            txtRuta.setText(turno);
+            lbfoto.setIcon(new ImageIcon(turno));
+            tfFecha.setText(hora);
+        }
+    }//GEN-LAST:event_TablaDatosMouseClicked
+    
+    void modificar(){
+        //variables
+       String propietario=tfPropietario.getText();
+       String placa=tfPlaca.getText();
+       String foto=txtRuta.getText();       
+       String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
+       
+       if(propietario.equals("")|| placa.equals("") || foto.equals("") || tipo.equals("Seleccione")){
+            JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
+            limpiartabla();
+        }else{
+           NVehiculo aja = new NVehiculo( propietario, placa, foto,tipo);
+           
+           if(aja.modificar(id)){
+               JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
+               limpiartabla();
+           }else{
+                System.err.println("Error:");
+           }
+        }
+    }
+    void eliminar(){
+        int filaSeleccionado=TablaDatos.getSelectedRow();
+        if(filaSeleccionado==-1){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
+            limpiartabla();
+        }else{
+            if(negocio.eliminar(id)== true){
+                JOptionPane.showMessageDialog(null, "el ingreso del vehiculo fue eliminado");
+                limpiartabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "error");
+            }
+        }
+    }
+    
+    void nuevo(){
+        txtId.setText("");
+        tfPropietario.setText("");
+        tfPlaca.setText("");
+        txtRuta.setText("");
+        lbfoto.setIcon(new ImageIcon(""));
+        tfPropietario.requestFocus();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JCheckBox cbAuto;
-    private javax.swing.JCheckBox cbMoto;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTable TablaDatos;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox<String> comboTipo;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JRadioButton rbEnParq;
-    private javax.swing.JRadioButton rbFueraParq;
-    private javax.swing.JTable tblVehiculos;
+    private javax.swing.JLabel lbfoto;
+    private javax.swing.JTextField tfFecha;
     private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfPropietario;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
 }

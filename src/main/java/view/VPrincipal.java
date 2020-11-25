@@ -10,13 +10,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author bue221
  */
 public class VPrincipal extends javax.swing.JFrame {
 
-    VIngresar ingresar;
     VRetirar retirar;
     VListar listar;
     VAcerca acerca;
@@ -28,29 +28,25 @@ public class VPrincipal extends javax.swing.JFrame {
     public VPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        setSize(900,550);                
-        
-        ingresar = new VIngresar();
-        ingresar.setBounds(300,0,473,400);
-        add(ingresar);
-        
+        setSize(900, 550);
+
         retirar = new VRetirar();
-        retirar.setBounds(300,0,473,400);
+        retirar.setBounds(300, 0, 473, 400);
         add(retirar);
         retirar.setVisible(false);
-        
+
         listar = new VListar();
-        listar.setBounds(300,0,600,400);
+        listar.setBounds(300, 0, 600, 400);
         add(listar);
         listar.setVisible(false);
-        
+
         acerca = new VAcerca();
-        acerca.setBounds(300,0,473,400);
+        acerca.setBounds(300, 0, 473, 400);
         add(acerca);
         acerca.setVisible(false);
-        
+
         trabajador = new VTrabajador();
-        trabajador.setBounds(300,0,600,400);
+        trabajador.setBounds(300, 0, 600, 400);
         add(trabajador);
         trabajador.setVisible(false);
     }
@@ -69,7 +65,6 @@ public class VPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         btnTrabajador = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -113,16 +108,6 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(34, 44, 63));
-        jButton5.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Ingresar Vehiculo");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         btnTrabajador.setBackground(new java.awt.Color(34, 44, 63));
         btnTrabajador.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
         btnTrabajador.setForeground(new java.awt.Color(255, 255, 255));
@@ -146,7 +131,6 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnTrabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,9 +142,7 @@ public class VPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(79, 79, 79)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +189,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ingresar.setVisible(false);
+
         retirar.setVisible(true);
         listar.setVisible(false);
         acerca.setVisible(false);
@@ -215,7 +197,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-      System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
@@ -227,42 +209,37 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void btnTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrabajadorActionPerformed
-       ingresar.setVisible(true);
-       retirar.setVisible(false);
-       listar.setVisible(false);
+
+        retirar.setVisible(false);
+        acerca.setVisible(false);
+        listar.setVisible(false);
         trabajador.setVisible(false);
     }//GEN-LAST:event_btnTrabajadorActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ingresar.setVisible(false);
-       retirar.setVisible(false);
-       listar.setVisible(true);
-       acerca.setVisible(false);
+
+        retirar.setVisible(false);
+        listar.setVisible(true);
+        acerca.setVisible(false);
         trabajador.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
-                                      
+
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-       ingresar.setVisible(false);
-       retirar.setVisible(false);
-       acerca.setVisible(true);
+
+        retirar.setVisible(false);
+        listar.setVisible(false);
+        acerca.setVisible(true);
         trabajador.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       ingresar.setVisible(true);
-       retirar.setVisible(false);
-       acerca.setVisible(false);
-       trabajador.setVisible(false);
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void btnTrabajadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrabajadorMouseClicked
-       ingresar.setVisible(false);
-       retirar.setVisible(false);
-       acerca.setVisible(false);
-       trabajador.setVisible(true);
-    }//GEN-LAST:event_btnTrabajadorMouseClicked
 
+        retirar.setVisible(false);
+        listar.setVisible(false);
+        acerca.setVisible(false);
+        trabajador.setVisible(true);
+    }//GEN-LAST:event_btnTrabajadorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -304,7 +281,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
