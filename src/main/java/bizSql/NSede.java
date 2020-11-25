@@ -17,20 +17,25 @@ import java.sql.SQLException;
  * @author USER
  */
 public class NSede {
-    private String nombre, ubicacion;
-    private int espacio, id;
-    private double tarifaC, tarifaM;
+    private int id;
+    private String nombre;
+    private int espacios;
+    private double tarifaC;
+    private double tarifaM;
+    private String ubicacion;
+
+    public NSede(String nombre, int espacios, double tarifaC, double tarifaM, String ubicacion) {
+        this.nombre = nombre;
+        this.espacios = espacios;
+        this.tarifaC = tarifaC;
+        this.tarifaM = tarifaM;
+        this.ubicacion = ubicacion;
+    }
 
     public NSede() {
     }
 
-    public NSede(String nombre, String ubicacion, int espacio, double tarifaC, double tarifaM) {
-        this.nombre = nombre;
-        this.ubicacion = ubicacion;
-        this.espacio = espacio;
-        this.tarifaC = tarifaC;
-        this.tarifaM = tarifaM;
-    }
+    
 
     public String getUbicacion() {
         return ubicacion;
@@ -73,17 +78,18 @@ public class NSede {
     }
 
     public int getEspacio() {
-        return espacio;
+        return espacios;
     }
 
-    public void setEspacio(int espacio) {
-        this.espacio = espacio;
+    public void setEspacio(int espacios) {
+        this.espacios = espacios;
     }    
     
     //metodos del crud
     public boolean agregar() {
         try {
-            String query = "insert into Sede(Nombre,Espacios, Ubicacion ,TarifaC, TarifaM) values ('" + nombre + "','" + espacio + "','" + ubicacion + "','" + tarifaC + "','" + tarifaM + "')";
+            
+            String query = "insert into Sede(Nombre,Espacios,TarifaC, TarifaM,Ubicacion) values ('" + nombre + "','" + espacios + "','" + tarifaC + "','" + tarifaM + "','" + ubicacion + "')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 
@@ -113,7 +119,7 @@ public class NSede {
 
     public boolean modificar(int id) {
         try {
-            String sql = "update Sede set Nombre='" + nombre + "',Espacio='" + espacio + "',TarifaC='" + tarifaC + "',Ubicacion='" + ubicacion + "',TarifaM='" + tarifaM  + "' where Id=" + id;
+            String sql = "update Sede set Nombre='" + nombre + "',Espacios='" + espacios + "',TarifaC='" + tarifaC + "',TarifaM='" + tarifaM + "',Ubicacion='" + ubicacion + "' where Id="+ id;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             int res = st.executeUpdate();
@@ -135,8 +141,9 @@ public class NSede {
             NSede sede = new NSede();
             
             while(res.next()){                
-                sede.setEspacio(res.getInt("Espacio"));
+                
                 sede.setNombre(res.getString("Nombre"));
+                sede.setEspacio(res.getInt("Espacio"));
                 sede.setTarifaC(res.getDouble("TarifaC"));
                 sede.setTarifaM(res.getDouble("TarifaM"));
                 sede.setUbicacion(res.getString("Ubicacion"));

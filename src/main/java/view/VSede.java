@@ -27,7 +27,9 @@ public class VSede extends javax.swing.JPanel {
     DefaultTableModel modelo;
     //id y instancia del negocio
     int id;
-    
+    int espacios;
+    double tarifaC;
+    double tarifaM;
     /**
      * Creates new form VSede
      */
@@ -49,10 +51,10 @@ public class VSede extends javax.swing.JPanel {
            while (rs.next()){
                Sedes[0]= rs.getInt("Id");
                Sedes[1]= rs.getString("Nombre");
-               Sedes[2]= rs.getString("Ubicacion");
-               Sedes[3]= rs.getInt("Espacios");
-               Sedes[4] = rs.getDouble("TarifaC");
-               Sedes[5] = rs.getDouble("TarifaM");
+               Sedes[2]= rs.getInt("Espacios");
+               Sedes[3] = rs.getDouble("TarifaC");
+               Sedes[4] = rs.getDouble("TarifaM");
+               Sedes[5]= rs.getString("Ubicacion");
                modelo.addRow(Sedes);
            }
            TablaDatos.setModel(modelo);
@@ -65,16 +67,17 @@ public class VSede extends javax.swing.JPanel {
        
         //variables
        String nombre = txtNombre.getText();
-       String Ubicacion = comboUbi.getItemAt(comboUbi.getSelectedIndex());
+       int espacios = Integer.parseInt(txtEspacio.getText());
        double TarifaC = Double.parseDouble(txTarifaC.getText());
        double TarifaM = Double.parseDouble(txTarifaM.getText());
-       int espacios = Integer.parseInt(txtEspacio.getText());
+       String Ubicacion = comboUbi.getItemAt(comboUbi.getSelectedIndex());
+       
        
        if(nombre.equals("")|| txTarifaC.getText().equals("")|| txtEspacio.getText().equals("") || txTarifaM.getText().equals("") || Ubicacion.equals("Seleccione")){
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();
         }else{
-           NSede sede = new NSede(nombre,  Ubicacion, espacios, TarifaC, TarifaM);           
+           NSede sede = new NSede(nombre, espacios, TarifaC, TarifaM, Ubicacion);           
            if(sede.agregar()){
                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");
                limpiartabla();
@@ -120,6 +123,7 @@ public class VSede extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txTarifaM = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        txtUbicacion = new javax.swing.JTextField();
 
         txtId.setEditable(false);
         txtId.setEnabled(false);
@@ -197,6 +201,8 @@ public class VSede extends javax.swing.JPanel {
 
         jLabel7.setText("Tarifa Moto");
 
+        txtUbicacion.setText("jTextField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,18 +211,6 @@ public class VSede extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(208, 208, 208))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNuevo)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -255,13 +249,28 @@ public class VSede extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(42, 42, 42))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(274, 274, 274)
+                        .addComponent(btnNuevo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -276,20 +285,22 @@ public class VSede extends javax.swing.JPanel {
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboUbi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnModificar)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnNuevo)))
+                            .addComponent(comboUbi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txTarifaM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txTarifaC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnNuevo))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -300,19 +311,20 @@ public class VSede extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Usuario no seleccionado");
         }else{
             
-            //id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
+            id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
             String nombre=(String) TablaDatos.getValueAt(fila, 1);
-            //String ubicacion=(String) TablaDatos.getValueAt(fila, 2);
-            String espacios=(String) TablaDatos.getValueAt(fila, 3);
-            String tarifaC=(String) TablaDatos.getValueAt(fila, 4);
-            String tarifaM=(String) TablaDatos.getValueAt(fila, 5);
+            espacios = Integer.parseInt((String) TablaDatos.getValueAt(fila, 2).toString());
+            tarifaC =Double.parseDouble((String) TablaDatos.getValueAt(fila, 3).toString());
+            tarifaM=Double.parseDouble((String) TablaDatos.getValueAt(fila, 4).toString());
+            String ubicacion=(String) TablaDatos.getValueAt(fila, 5);
             
 
-            //txtId.setText(""+ id);
-            txtNombre.setText(nombre);         
-            txTarifaC.setText(tarifaC);
-            txTarifaM.setText(tarifaM);
-            txtEspacio.setText(espacios);
+            txtId.setText(""+ id);
+            txtNombre.setText(nombre);  
+            txtEspacio.setText(""+espacios);
+            txTarifaC.setText(""+tarifaC);
+            txTarifaM.setText(""+tarifaM);
+            txtUbicacion.setText(ubicacion);
         }
     }//GEN-LAST:event_TablaDatosMouseClicked
 
@@ -345,16 +357,17 @@ public class VSede extends javax.swing.JPanel {
     void modificar(){
         //variables
        String nombre = txtNombre.getText();
-       String Ubicacion = comboUbi.getItemAt(comboUbi.getSelectedIndex());
+       int espacios = Integer.parseInt(txtEspacio.getText());
        double TarifaC = Double.parseDouble(txTarifaC.getText());
        double TarifaM = Double.parseDouble(txTarifaM.getText());
-       int espacios = Integer.parseInt(txtEspacio.getText());
+       String Ubicacion = comboUbi.getItemAt(comboUbi.getSelectedIndex());
+       
        
        if(nombre.equals("")|| txTarifaC.getText().equals("")|| txtEspacio.getText().equals("") || txTarifaM.getText().equals("") || Ubicacion.equals("Seleccione")){
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();
         }else{
-           NSede sede = new NSede(nombre,  Ubicacion, espacios, TarifaC, TarifaM);           
+           NSede sede = new NSede(nombre,espacios,TarifaC, TarifaM,Ubicacion);           
            
            if(sede.modificar(id)){
                JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
@@ -408,5 +421,6 @@ public class VSede extends javax.swing.JPanel {
     private javax.swing.JTextField txtEspacio;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtUbicacion;
     // End of variables declaration//GEN-END:variables
 }
