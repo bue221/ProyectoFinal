@@ -3,9 +3,14 @@ package conex;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
+=======
+import java.sql.SQLException;
+
+>>>>>>> 9663083195a0ae1bc00de79413af9340c1d03ddf
 
 public class Conexion {
 
