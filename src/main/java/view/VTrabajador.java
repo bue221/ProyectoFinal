@@ -5,6 +5,7 @@
  */
 package view;
 
+import bizSql.NTrabajador;
 import conex.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +24,9 @@ public class VTrabajador extends javax.swing.JPanel {
     Statement st;
     ResultSet rs;
     DefaultTableModel modelo;
-    int id;
+    //id e instancia del negocio
+    int Id;
+    NTrabajador negocio = new NTrabajador();
         
     public VTrabajador() {
         initComponents();
@@ -51,6 +54,7 @@ public class VTrabajador extends javax.swing.JPanel {
        }
    }
    void Agregar(){
+       
        String Nombre=txtNombre.getText();
        String Cargo=txtCargo.getText();
        String Turno=txtTurno.getText();
@@ -59,15 +63,13 @@ public class VTrabajador extends javax.swing.JPanel {
            JOptionPane.showMessageDialog(null, "Debes ingresar informacion en todos los campos");
            limpiartabla();
        }else{
-           String sql="insert into Trabajador(Nombre,Cargo,Turno) values ('"+Nombre+"','"+Cargo+"','"+Turno+"')";
-           try{
-               cn=con.getConnection();
-               st=cn.createStatement();
-               st.executeUpdate(sql);
-               JOptionPane.showMessageDialog(null, "Trabajador agregado");
+           NTrabajador tra = new NTrabajador( Nombre, Cargo, Turno);
+           
+           if(tra.agregar()){
+               JOptionPane.showMessageDialog(null, "se agrego un trabajador");
                limpiartabla();
-           }catch (Exception e){
-               
+           }else{
+               System.err.println("Error");
            }
        }
        
@@ -210,7 +212,8 @@ public class VTrabajador extends javax.swing.JPanel {
                             .addGap(18, 18, 18)
                             .addComponent(btnModificar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnEliminar))))
+                            .addComponent(btnEliminar)
+                            .addGap(78, 78, 78))))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -249,15 +252,16 @@ public class VTrabajador extends javax.swing.JPanel {
 
     private void TablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDatosMouseClicked
         int fila=TablaDatos.getSelectedRow();
+        
         if(fila==-1){
             JOptionPane.showMessageDialog(null, "Usuario no seleccionado");
         }else{
-            id=Integer.parseInt((String)TablaDatos.getValueAt(fila,0).toString());
+            Id=Integer.parseInt((String)TablaDatos.getValueAt(fila,0).toString());
             String nombre=(String) TablaDatos.getValueAt(fila, 1);
             String cargo=(String) TablaDatos.getValueAt(fila, 2);
             String turno=(String) TablaDatos.getValueAt(fila, 3);
             
-            txtId.setText(""+id);
+            txtId.setText(""+Id);
             txtNombre.setText(nombre);
             txtCargo.setText(cargo);
             txtTurno.setText(turno);
@@ -279,35 +283,35 @@ public class VTrabajador extends javax.swing.JPanel {
         String Nombre=txtNombre.getText();
         String Cargo=txtCargo.getText();
         String Turno=txtTurno.getText();
-        String sql="update Trabajador set Nombre='"+Nombre+"',Cargo='"+Cargo+"',Turno='"+Turno+"' where Id="+id;
+        
         if(Nombre.equals("")|| Cargo.equals("") || Turno.equals("")){
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
+            limpiartabla();
         }else{
-            try{
-                cn=con.getConnection();
-                st=cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Usuario actualizado");
-                limpiartabla();
-            }catch (Exception e){
-                System.err.println("Error:" +e);
+            NTrabajador tra = new NTrabajador( Nombre, Cargo, Turno);
+            
+            if(tra.modificar(Id)){
+                JOptionPane.showMessageDialog(null, "informacion del trabajador actualizada");
+               limpiartabla();
+            }else{
+                System.err.println("Error:");
             }
         }
     }
+    
     void eliminar(){
         int filaSeleccionado=TablaDatos.getSelectedRow();
         if(filaSeleccionado==-1){
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
+            limpiartabla();
         }else{
-            String sql="delete from Trabajador where Id="+id;
-            try{
-                cn=con.getConnection();
-                st=cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "El usuario fue eliminado");
+           
+            if(negocio.eliminar(Id)==true){
+                JOptionPane.showMessageDialog(null, "informacion del trabajador eliminada"
+                        + "");
                 limpiartabla();
-            }catch (Exception e){
-                
+            }else{
+                JOptionPane.showMessageDialog(null, "error");
             }
         }
     }

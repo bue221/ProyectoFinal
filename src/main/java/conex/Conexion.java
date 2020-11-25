@@ -23,10 +23,7 @@ public class Conexion {
     public Connection getConnection() {
         return con;
     }
-
     public PreparedStatement prepareStatement(String selectfrom_Trabajador_where_Id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-
-
 }

@@ -30,25 +30,25 @@ public class VPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setSize(960, 600);
 
-        retirar = new VRetirar();
-        retirar.setBounds(300, 0, 473, 400);
-        add(retirar);
-        retirar.setVisible(false);
-
         listar = new VListar();
         listar.setBounds(300, 0, 600, 400);
         add(listar);
         listar.setVisible(true);
-
-        acerca = new VAcerca();
+        
+        /*acerca = new VAcerca();
         acerca.setBounds(300, 0, 473, 400);
         add(acerca);
-        acerca.setVisible(false);
+        acerca.setVisible(false);*/
+        
+        /*retirar = new VRetirar();
+        retirar.setBounds(300, 0, 473, 400);
+        add(retirar);
+        retirar.setVisible(false);
 
         trabajador = new VTrabajador();
         trabajador.setBounds(300, 0, 600, 400);
         add(trabajador);
-        trabajador.setVisible(false);
+        trabajador.setVisible(false);*/
     }
 
     /**
@@ -202,7 +202,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        retirar.setVisible(true);
+        //retirar.setVisible(true);
         listar.setVisible(false);
         acerca.setVisible(false);
         trabajador.setVisible(false);
