@@ -1,26 +1,31 @@
-
 package conex;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+=======
+import java.sql.SQLException;
+>>>>>>> 02dd6918866db6ca3133ced2833f8104406b8f0d
 
 public class Conexion {
-    
+
     Connection con;
-    public Conexion(){
-        
-        try{
+
+    public Conexion() {
+
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ProyectoFinal","root","");
-        }catch (Exception e){
-            System.err.println("Error:" +e);
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProyectoFinal", "root", "");
+            System.out.print("Conexion exitosa a la base de datos mysql");
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println("Error:" + e);
         }
     }
-    
-    public Connection getConnection(){
+
+    public Connection getConnection() {
         return con;
     }
 
