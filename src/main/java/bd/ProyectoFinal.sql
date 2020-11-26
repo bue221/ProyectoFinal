@@ -37,8 +37,6 @@ TarifaM double,
 Ubicacion varchar(10)
 );
 
-drop table Sede
-
 insert into Sede (Nombre,Espacios,Ubicacion, TarifaC, TarifaM) values ("Sede A", 20, "Norte", 800, 200 );
 
 select * from Sede
