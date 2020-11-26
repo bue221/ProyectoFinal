@@ -485,11 +485,7 @@ public class VListar extends javax.swing.JPanel {
             limpiartabla();
             limpiarCombo();
             cargarSede();
-        } else {
-            String propietario = tfPropietario.getText();
-            String placa = tfPlaca.getText();
-            NVehiculoRetirado retirado = new NVehiculoRetirado(propietario, placa, foto, tipoVehiculo);
-            if (retirado.RetirarVehiculo(id)) {
+        } else {           
                 if (negocio.eliminar(id) == true) {
                     JOptionPane.showMessageDialog(null, "el ingreso del vehiculo fue eliminado");
                     limpiartabla();
@@ -497,8 +493,7 @@ public class VListar extends javax.swing.JPanel {
                     cargarSede();
                 } else {
                     JOptionPane.showMessageDialog(null, "error");
-                }
-            }
+                }            
         }
     }
 

@@ -306,10 +306,10 @@ public class VSede extends javax.swing.JPanel {
             
             id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
             String nombre=(String) TablaDatos.getValueAt(fila, 1);
-            espacios = Integer.parseInt((String) TablaDatos.getValueAt(fila, 5).toString());
-            tarifaC =Double.parseDouble((String) TablaDatos.getValueAt(fila, 3).toString());
-            tarifaM=Double.parseDouble((String) TablaDatos.getValueAt(fila, 4).toString());
-            String ubicacion=(String) TablaDatos.getValueAt(fila, 2);
+            espacios = Integer.parseInt((String) TablaDatos.getValueAt(fila, 3).toString());
+            tarifaC =Double.parseDouble((String) TablaDatos.getValueAt(fila, 4).toString());
+            tarifaM=Double.parseDouble((String) TablaDatos.getValueAt(fila, 5).toString());
+            //String ubicacion=(String) TablaDatos.getValueAt(fila, 2);
             
 
             txtId.setText(""+ id);
