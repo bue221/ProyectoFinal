@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class VPrincipal extends javax.swing.JFrame {
 
     VRetirar1 retirar;
+    VUsuario usuario;
     VListar listar;
     VAcerca acerca;
     VTrabajador trabajador;
@@ -30,11 +31,16 @@ public class VPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setSize(1250, 600);
+        
+        usuario = new VUsuario();
+        usuario.setBounds(300,0,600,460);
+        add(usuario);
+        usuario.setVisible(false);
 
         listar = new VListar();
         listar.setBounds(300, 0, 600, 460);
         add(listar);
-        listar.setVisible(true);
+        listar.setVisible(false);
 
         acerca = new VAcerca();
         acerca.setBounds(300, 0, 473, 460);
@@ -68,11 +74,11 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnRetirarVehiculo = new javax.swing.JButton();
+        btnVehiculo = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        btnTrabajador = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnUsuario = new javax.swing.JButton();
+        btnSede = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -86,23 +92,23 @@ public class VPrincipal extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("ParkingSoft");
 
-        jButton1.setBackground(new java.awt.Color(34, 44, 63));
-        jButton1.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Retirar Vehiculo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRetirarVehiculo.setBackground(new java.awt.Color(34, 44, 63));
+        btnRetirarVehiculo.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
+        btnRetirarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        btnRetirarVehiculo.setText("Retirar Vehiculo");
+        btnRetirarVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRetirarVehiculoActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(34, 44, 63));
-        jButton3.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Listar Vehiculos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnVehiculo.setBackground(new java.awt.Color(34, 44, 63));
+        btnVehiculo.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
+        btnVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        btnVehiculo.setText("Listar Vehiculos");
+        btnVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnVehiculoActionPerformed(evt);
             }
         });
 
@@ -116,28 +122,28 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnTrabajador.setBackground(new java.awt.Color(34, 44, 63));
-        btnTrabajador.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
-        btnTrabajador.setForeground(new java.awt.Color(255, 255, 255));
-        btnTrabajador.setText("Trabajadores");
-        btnTrabajador.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnUsuario.setBackground(new java.awt.Color(34, 44, 63));
+        btnUsuario.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
+        btnUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnUsuario.setText("Usuarios");
+        btnUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTrabajadorMouseClicked(evt);
+                btnUsuarioMouseClicked(evt);
             }
         });
-        btnTrabajador.addActionListener(new java.awt.event.ActionListener() {
+        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTrabajadorActionPerformed(evt);
+                btnUsuarioActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(34, 44, 63));
-        jButton5.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Sedes");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnSede.setBackground(new java.awt.Color(34, 44, 63));
+        btnSede.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
+        btnSede.setForeground(new java.awt.Color(255, 255, 255));
+        btnSede.setText("Sedes");
+        btnSede.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnSedeActionPerformed(evt);
             }
         });
 
@@ -149,11 +155,11 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTrabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSede, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRetirarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -162,13 +168,13 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRetirarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTrabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSede, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
@@ -216,15 +222,16 @@ public class VPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRetirarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarVehiculoActionPerformed
         // TODO add your handling code here:
 
+        usuario.setVisible(false);
         retirar.setVisible(true);
         listar.setVisible(false);
         acerca.setVisible(false);
         trabajador.setVisible(false);
         sede.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRetirarVehiculoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         System.exit(0);
@@ -238,27 +245,30 @@ public class VPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu2MouseClicked
 
-    private void btnTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrabajadorActionPerformed
+    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
 
+        usuario.setVisible(true);
         retirar.setVisible(false);
-        acerca.setVisible(false);
         listar.setVisible(false);
+        acerca.setVisible(false);
         trabajador.setVisible(false);
         sede.setVisible(false);
-    }//GEN-LAST:event_btnTrabajadorActionPerformed
+    }//GEN-LAST:event_btnUsuarioActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVehiculoActionPerformed
 
+        usuario.setVisible(false);
         retirar.setVisible(false);
         listar.setVisible(true);
         acerca.setVisible(false);
         trabajador.setVisible(false);
         sede.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnVehiculoActionPerformed
 
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
 
+        usuario.setVisible(false);
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(true);
@@ -266,14 +276,15 @@ public class VPrincipal extends javax.swing.JFrame {
         sede.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void btnTrabajadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrabajadorMouseClicked
+    private void btnUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioMouseClicked
 
+        usuario.setVisible(true);
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
-        trabajador.setVisible(true);
+        trabajador.setVisible(false);
         sede.setVisible(false);
-    }//GEN-LAST:event_btnTrabajadorMouseClicked
+    }//GEN-LAST:event_btnUsuarioMouseClicked
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         VLogin login = new VLogin();
@@ -281,13 +292,14 @@ public class VPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu3MouseClicked
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSedeActionPerformed
+        usuario.setVisible(false);
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
         trabajador.setVisible(false);
         sede.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnSedeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,11 +337,11 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTrabajador;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnRetirarVehiculo;
+    private javax.swing.JButton btnSede;
+    private javax.swing.JButton btnUsuario;
+    private javax.swing.JButton btnVehiculo;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

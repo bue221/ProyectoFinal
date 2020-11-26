@@ -92,10 +92,9 @@ public class VSede extends javax.swing.JPanel {
     private void limpiartabla(){
        for(int i=1;i<=TablaDatos.getRowCount();i++){
             i=i-i;
-           modelo.removeRow(i);
-          
+           modelo.removeRow(i); 
        }
-   }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

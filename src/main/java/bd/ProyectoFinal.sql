@@ -1,59 +1,102 @@
-
 create database ProyectoFinal;
 
-use ProyectoFinal;
+Use ProyectoFinal;
+
+#Login
 
 create table Usuario
 (
 Id int auto_increment primary key,
+IdCargo int,
 Nombre varchar(50),
-Apellidos varchar(50),
-Cargo int,
-Turno varchar(60),
-Correo varchar(90),
-Contraseña varchar(15)
+Apellido varchar(50),
+Correo varchar(60),
+Clave varchar(15)
 );
 select*from Usuario;
 
-create table Vehiculos
+create table Factura
 (
 Id int auto_increment primary key,
-NombrePropietario varchar(40),
-placa varchar(10),
-foto varchar(400),
-tipo varchar(20),
-fecha dateTime default now(),
-tarifa double
+IdVehiculo int,
+IdSede int,
+Placa varchar(50),
+FechaIngreso datetime,
+FechaSalida datetime default now(),
+ValorPago double
 );
 
 
-select NombrePropietario,fecha from Vehiculos where placa='OBH222';
-insert into Vehiculos (NombrePropietario,placa, foto) values ("Camilo Plaza", "OBH222", "C:\Users\USER\OneDrive\Fotos\Fondos\fondo2.jpg", "carro");
+create table Vehiculo
+(
+Id int auto_increment primary key,
+IdUsuario int,
+TipoVehiculo int,
+Propietario varchar(50),
+Placa varchar(50)
+);
+
+create table Estacionamiento
+(
+Id int auto_increment primary key,
+DisponibilidadMoto int,
+DisponibilidadCarro int
+);
 
 create table Sede
 (
 Id int auto_increment primary key,
-Nombre varchar(50),
-Espacios int,
-TarifaC double,
-TarifaM double,
-Ubicacion varchar(10)
+NombreSede varchar(50),
+IdEstacionamiento int,
+TarifaM Double,
+TarifaC Double,
+Ubicacion varchar(50)
 );
 
-insert into Sede (Nombre,Espacios,Ubicacion, TarifaC, TarifaM) values ("Sede A", 20, "Norte", 800, 200 );
-
-select * from Sede;
-
-create table VehiculoRetirado
+create table Cargo
 (
 Id int auto_increment primary key,
-NombrePropietario varchar(40),
-placa varchar(10),
-foto varchar(400),
-tipo varchar(20),
-fechaIngreso dateTime default now(),
-fechaSalida dateTime default now(),
-Pago double
+Cargo varchar(60),
+Turno varchar(90)
+);
+insert into Cargo(Cargo,Turno) values ('Administrador','Lun-Vier: 7:00am-2:00pm');
+create Table TipoVehiculo
+(
+Id int auto_increment primary key,
+TipoVehiculo varchar(50)
 );
 
-Select*from VehiculoRetirado;
+ALTER TABLE Vehiculo
+ADD CONSTRAINT FK_VehiculoTipo
+FOREIGN KEY (TipoVehiculo) REFERENCES TipoVehiculo(Id);
+
+ALTER TABLE Sede
+ADD CONSTRAINT FK__SedeEstacionamiento
+FOREIGN KEY (IdEstacionamiento) REFERENCES Estacionamiento(Id);
+
+ALTER TABLE Vehiculo
+ADD CONSTRAINT FK_VehiculoUsuario
+FOREIGN KEY (IdUsuario) REFERENCES Usuario(Id);
+
+ALTER TABLE Usuario
+ADD CONSTRAINT FK_UsuarioCargo
+FOREIGN KEY (IdCargo) REFERENCES Cargo(Id);
+
+ALTER TABLE Factura
+ADD CONSTRAINT FK_FacturaVehiculo
+FOREIGN KEY (IdVehiculo) REFERENCES Vehiculo(Id);
+
+ALTER TABLE Factura
+ADD CONSTRAINT FK_FacturaSede
+FOREIGN KEY (IdSede) REFERENCES Sede(Id);
+
+
+
+
+
+
+
+
+
+
+
