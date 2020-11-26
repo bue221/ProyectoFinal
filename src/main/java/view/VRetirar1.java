@@ -73,11 +73,12 @@ public class VRetirar1 extends javax.swing.JPanel {
         
         String propietario = txtPropietario.getText();
         String placa = txtPlaca.getText();
-        //String foto = txtRuta.getText();
+        String foto = txtRuta.getText();
         String tipo = txtTipo.getText();
         
         
         NVehiculoRetirado retirado = new NVehiculoRetirado( propietario,placa,foto,tipo);
+        try{
         if(retirado.RetirarVehiculo(id)){            
             if(retirado.eliminar(id)){
                 JOptionPane.showMessageDialog(null, "Vehiculo retirado con exito");
@@ -85,6 +86,8 @@ public class VRetirar1 extends javax.swing.JPanel {
             }
         }else{
             System.err.println("Error");
+        }}catch(Exception e){
+            System.out.print(e);
         }
     }
     
