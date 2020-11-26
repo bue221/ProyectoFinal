@@ -202,12 +202,19 @@ public class NVehiculo {
             return null;
         }
     } 
-    public boolean buscarReg(String placa){
-        String sql = "select*from Vehiculos"+"where placa='"+placa+"'";
-        try{
-            return true;
-        }catch (Exception e){
-            System.out.println(e);
+
+    public boolean RetirarVehiculo(int id){
+        try {
+            String query = "insert into Vehiculos(NombrePropietario,placa,foto,tipo) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo + "')";
+            Connection con = new Conexion().getConnection();
+            PreparedStatement sql = con.prepareStatement(query);
+
+            int res = sql.executeUpdate();
+
+            return res == 1;
+
+        } catch (SQLException e) {
+            System.out.print("Error: " + e);
             return false;
         }
     }

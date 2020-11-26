@@ -109,7 +109,7 @@ public class VRetirar extends javax.swing.JPanel {
          
         String placa = tfPlacaRetiro.getText();
         NVehiculo vehiculo = new NVehiculo();
-        vehiculo.buscarReg(placa);
+        //vehiculo.buscarReg(placa);
         /*try{
         
         NVehiculo negocio = new NVehiculo();

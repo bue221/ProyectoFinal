@@ -25,7 +25,8 @@ tipo varchar(20),
 fecha dateTime default now()
 );
 
-select*from Vehiculos;
+
+select NombrePropietario,fecha from Vehiculos where placa='OBH222';
 insert into Vehiculos (NombrePropietario,placa, foto) values ("Camilo Plaza", "OBH222", "C:\Users\USER\OneDrive\Fotos\Fondos\fondo2.jpg", "carro");
 
 create table Sede
@@ -40,4 +41,18 @@ Ubicacion varchar(10)
 
 insert into Sede (Nombre,Espacios,Ubicacion, TarifaC, TarifaM) values ("Sede A", 20, "Norte", 800, 200 );
 
-select * from Sede
+select * from Sede;
+
+create table VehiculoRetirado
+(
+Id int auto_increment primary key,
+NombrePropietario varchar(40),
+placa varchar(10),
+foto varchar(400),
+tipo varchar(20),
+fechaIngreso dateTime default now(),
+fechaSalida dateTime default now(),
+Pago double
+);
+
+Select*from VehiculoRetirado;

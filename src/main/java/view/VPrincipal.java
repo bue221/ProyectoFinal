@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class VPrincipal extends javax.swing.JFrame {
 
-    VRetirar2 retirar;
+    VRetirar1 retirar;
     VListar listar;
     VAcerca acerca;
     VTrabajador trabajador;
@@ -41,7 +41,7 @@ public class VPrincipal extends javax.swing.JFrame {
         add(acerca);
         acerca.setVisible(false);
 
-        retirar = new VRetirar2();
+        retirar = new VRetirar1();
         retirar.setBounds(300, 0, 950, 460);
         add(retirar);
         retirar.setVisible(false);
