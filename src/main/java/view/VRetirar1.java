@@ -12,6 +12,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +33,7 @@ public class VRetirar1 extends javax.swing.JPanel {
     
     int id;
     String foto;
+    double tarifa;
     NVehiculo negocio = new NVehiculo();
     
     public VRetirar1() {
@@ -53,7 +57,7 @@ public class VRetirar1 extends javax.swing.JPanel {
                 vehiculos[2] = rs.getString("placa");           
                 vehiculos[3] = rs.getString("foto");
                 vehiculos[4] = rs.getString("tipo");
-                vehiculos[5] = rs.getDate("fecha");
+                vehiculos[5] = rs.getDouble("tarifa");
                 modelo.addRow(vehiculos);
             }
             TablaDatos.setModel(modelo);
@@ -76,12 +80,28 @@ public class VRetirar1 extends javax.swing.JPanel {
         String foto = txtRuta.getText();
         String tipo = txtTipo.getText();
         
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal  = Calendar.getInstance();
+        java.util.Date date = cal.getTime();
+        String fechaHora = dateFormat.format(date);
+            
+        NVehiculo vehiculo = new NVehiculo();        
+        NVehiculo data = vehiculo.buscar(id);
+            /*
+            int minuntosACobrar = (int) (date.getTime()-data.getFechaEntrada().getTime())/60000;
+            double cobro = (double) minuntosACobrar * data.getTarifa();*/
         
-        NVehiculoRetirado retirado = new NVehiculoRetirado( propietario,placa,foto,tipo);
+                
+        
+         if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
+            JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
+            limpiartabla();            
+        } else {
+        NVehiculoRetirado retirado = new NVehiculoRetirado( data.getNombrePropietario(),data.getPlaca(),data.getFoto(),data.getTipo(), data.getFechaEntrada());
         try{
         if(retirado.RetirarVehiculo(id)){            
             if(retirado.eliminar(id)){
-                JOptionPane.showMessageDialog(null, "Vehiculo retirado con exito");
+                JOptionPane.showMessageDialog(null, "Debe pagar ");
                 limpiartabla();
             }
         }else{
@@ -89,6 +109,7 @@ public class VRetirar1 extends javax.swing.JPanel {
         }}catch(Exception e){
             System.out.print(e);
         }
+         }
     }
     
     @SuppressWarnings("unchecked")
@@ -280,8 +301,8 @@ public class VRetirar1 extends javax.swing.JPanel {
             String placa = (String) TablaDatos.getValueAt(fila, 2);
             String ruta = (String) TablaDatos.getValueAt(fila, 3);
             String tipo = (String) TablaDatos.getValueAt(fila, 4);
-            //Date hora =  (Date) TablaDatos.getValueAt(fila, 5);            
-
+            //Date hora =  (Date) TablaDatos.getValueAt(fila, 5);
+            tarifa = (double) TablaDatos.getValueAt(fila, 5);
             txtId.setText("" + id);
             txtPropietario.setText(propietario);
             txtPlaca.setText(placa);

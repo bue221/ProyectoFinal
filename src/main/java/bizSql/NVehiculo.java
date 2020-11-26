@@ -62,6 +62,16 @@ public class NVehiculo {
         this.tarifa = tarifa;
     }
 
+    public NVehiculo(String nombrePropietario, String placa, String foto, String tipo, Date fechaEntrada) {
+        this.nombrePropietario = nombrePropietario;
+        this.placa = placa;
+        this.foto = foto;
+        this.tipo = tipo;
+        this.fechaEntrada = fechaEntrada;
+    }
+    
+    
+
     public double getTarifa() {
         return tarifa;
     }
@@ -134,7 +144,7 @@ public class NVehiculo {
     //metodos del crud
     public boolean agregar() {
         try {
-            String query = "insert into Vehiculos(NombrePropietario,placa,foto,tipo,tarifa) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo + "','"+tarifa+"')";
+            String query = "insert into Vehiculos(NombrePropietario,placa,foto,tipo,tarifa,fechaIngreso) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo + "','"+tarifa+"','"+fechaEntrada+"')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 
@@ -176,10 +186,10 @@ public class NVehiculo {
         }
     }
     
-    public NVehiculo buscar(String placa) {
+    public NVehiculo buscar(int id) {
         try {
 
-            String sql = "select * from Vehiculos where placa="+placa;
+            String sql = "select * from Vehiculos where Id="+id;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet res = st.executeQuery();

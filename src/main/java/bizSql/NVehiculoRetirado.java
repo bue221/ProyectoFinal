@@ -48,6 +48,10 @@ public class NVehiculoRetirado {
         
     }
 
+    public NVehiculoRetirado(String nombrePropietario, String placa, String foto, String tipo, Date fechaEntrada) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     public Double getPago() {
         return Pago;
@@ -117,8 +121,8 @@ public class NVehiculoRetirado {
     
     public boolean RetirarVehiculo(int id){
         try {
-            String query = "insert into VehiculoRetirado(NombrePropietario,placa,foto,tipo,fechaIngreso,fechaSalida,Pago) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo 
-                            + "','"+ fechaIngreso + "','"+ Pago+"')";
+            String query = "insert into VehiculoRetirado(NombrePropietario,placa,foto,tipo) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo 
+                            + "')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 
