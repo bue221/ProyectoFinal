@@ -52,9 +52,9 @@ public class VSede extends javax.swing.JPanel {
                Sedes[0]= rs.getInt("Id");
                Sedes[1]= rs.getString("Nombre");
                Sedes[2]= rs.getString("Ubicacion");
-               Sedes[3] = rs.getDouble("TarifaC");
-               Sedes[4] = rs.getDouble("TarifaM");
-               Sedes[5]= rs.getInt("Espacios");
+               Sedes[4] = rs.getDouble("TarifaC");
+               Sedes[5] = rs.getDouble("TarifaM");
+               Sedes[3]= rs.getInt("Espacios");
                modelo.addRow(Sedes);
            }
            TablaDatos.setModel(modelo);
@@ -79,7 +79,7 @@ public class VSede extends javax.swing.JPanel {
         }else{
            NSede sede = new NSede(nombre, espacios, TarifaC, TarifaM, Ubicacion);           
            if(sede.agregar()){
-               JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");
+               JOptionPane.showMessageDialog(null, "se agrego una nueva Sede");
                limpiartabla();
            }else{
                 System.err.println("Error");
