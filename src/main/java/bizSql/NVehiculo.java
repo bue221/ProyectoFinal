@@ -26,6 +26,7 @@ public class NVehiculo {
     private Date fechaEntrada;
     private String valorMin;
     private int id;
+    private double tarifa;
 
     public NVehiculo() {
     }
@@ -52,6 +53,24 @@ public class NVehiculo {
         this.fechaEntrada = fechaEntrada;
         this.valorMin = valorMin;
     }
+
+    public NVehiculo(String nombrePropietario, String placa, String foto, String tipo, double tarifa) {
+        this.nombrePropietario = nombrePropietario;
+        this.placa = placa;
+        this.foto = foto;
+        this.tipo = tipo;
+        this.tarifa = tarifa;
+    }
+
+    public double getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(double tarifa) {
+        this.tarifa = tarifa;
+    }
+
+   
     
 
     public String getValorMin() {
@@ -115,7 +134,7 @@ public class NVehiculo {
     //metodos del crud
     public boolean agregar() {
         try {
-            String query = "insert into Vehiculos(NombrePropietario,placa,foto,tipo) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo + "')";
+            String query = "insert into Vehiculos(NombrePropietario,placa,foto,tipo,tarifa) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo + "','"+tarifa+"')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 
@@ -145,7 +164,7 @@ public class NVehiculo {
 
     public boolean modificar(int id) {
         try {
-            String sql = "update Vehiculos set NombrePropietario='" + nombrePropietario + "',placa='" + placa + "',foto='" + foto + "', tipo= '" + tipo +"' where Id=" + id;
+            String sql = "update Vehiculos set NombrePropietario='" + nombrePropietario + "',placa='" + placa + "',foto='" + foto + "', tipo= '" + tipo +"', tarifa= '" + tarifa +"' where Id=" + id;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             int res = st.executeUpdate();
@@ -186,7 +205,7 @@ public class NVehiculo {
     public boolean buscarReg(String placa){
         String sql = "select*from Vehiculos"+"where placa='"+placa+"'";
         try{
-            
+            return true;
         }catch (Exception e){
             System.out.println(e);
             return false;

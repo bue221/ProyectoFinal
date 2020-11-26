@@ -35,6 +35,7 @@ public class VListar extends javax.swing.JPanel {
     //id y instancia del negocio
     int id;
     String foto;
+    double tarifa;
     NVehiculo negocio = new NVehiculo();
 
     /**
@@ -58,7 +59,7 @@ public class VListar extends javax.swing.JPanel {
             sta = coon.createStatement();
             res = sta.executeQuery(sql2);
             while (res.next()) {
-                comboSede.addItem(res.getString("Id"));
+                comboSede.addItem(res.getString("Id"));               
             }
         } catch (SQLException e) {
             System.out.print(e);
@@ -68,11 +69,20 @@ public class VListar extends javax.swing.JPanel {
 
     void calcularPrecios() {
         int sede = Integer.parseInt(comboSede.getItemAt(comboSede.getSelectedIndex()));
+        String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
         System.out.print(sede);
         try {
             NSede nuevo = new NSede();
             NSede data = nuevo.buscar(sede);
             System.out.println(data.getUbicacion());
+            
+            
+            if(tipo=="Carro"){
+                tarifa = data.getTarifaC();
+            }else if(tipo=="Moto"){
+                tarifa = data.getTarifaM();
+            }
+            
         } catch (Exception e) {
             System.out.print(e);
         }
@@ -107,19 +117,19 @@ public class VListar extends javax.swing.JPanel {
         //variables
         String propietario = tfPropietario.getText();
         String placa = tfPlaca.getText();
-        //String foto=txtRuta.getText();       
+        String foto=txtRuta.getText();       
         String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
 
         if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
-            JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
-            calcularPrecios();
+            JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");            
             limpiartabla();
             limpiarCombo();
             cargarSede();
         } else {
-            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo);
+            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo,tarifa);
             if (aja.agregar()) {
-                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");               
+                calcularPrecios();
+                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo"+tarifa);               
                 limpiartabla();
                 limpiarCombo();
                 cargarSede();
@@ -175,6 +185,7 @@ public class VListar extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         comboSede = new javax.swing.JComboBox<>();
+        txNSede = new javax.swing.JTextField();
 
         jLabel3.setText("Propietario");
 
@@ -260,6 +271,13 @@ public class VListar extends javax.swing.JPanel {
         jLabel8.setText("Sede");
 
         comboSede.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        comboSede.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboSedeItemStateChanged(evt);
+            }
+        });
+
+        txNSede.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -273,8 +291,10 @@ public class VListar extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(220, 220, 220)
                         .addComponent(jLabel8)
-                        .addGap(39, 39, 39)
-                        .addComponent(comboSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txNSede, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGap(275, 275, 275)
@@ -323,10 +343,11 @@ public class VListar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(22, 22, 22)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(comboSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txNSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -364,7 +385,7 @@ public class VListar extends javax.swing.JPanel {
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnNuevo))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -425,6 +446,10 @@ public class VListar extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TablaDatosMouseClicked
 
+    private void comboSedeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboSedeItemStateChanged
+        calcularPrecios();
+    }//GEN-LAST:event_comboSedeItemStateChanged
+
     void modificar() {
         //variables
         String propietario = tfPropietario.getText();
@@ -438,7 +463,7 @@ public class VListar extends javax.swing.JPanel {
             limpiarCombo();
             cargarSede();
         } else {
-            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo);
+            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo, tarifa);
 
             if (aja.modificar(id)) {
                 JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
@@ -500,6 +525,7 @@ public class VListar extends javax.swing.JPanel {
     private javax.swing.JTextField tfFecha;
     private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfPropietario;
+    private javax.swing.JTextField txNSede;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
