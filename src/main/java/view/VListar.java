@@ -7,6 +7,7 @@ package view;
 
 import bizSql.NSede;
 import bizSql.NVehiculo;
+import bizSql.NVehiculoRetirado;
 import conex.Conexion;
 import java.io.File;
 import java.sql.Connection;
@@ -36,6 +37,7 @@ public class VListar extends javax.swing.JPanel {
     int id;
     String foto;
     double tarifa;
+    String tipoVehiculo;
     NVehiculo negocio = new NVehiculo();
 
     /**
@@ -59,7 +61,7 @@ public class VListar extends javax.swing.JPanel {
             sta = coon.createStatement();
             res = sta.executeQuery(sql2);
             while (res.next()) {
-                comboSede.addItem(res.getString("Id"));               
+                comboSede.addItem(res.getString("Id"));
             }
         } catch (SQLException e) {
             System.out.print(e);
@@ -75,14 +77,13 @@ public class VListar extends javax.swing.JPanel {
             NSede nuevo = new NSede();
             NSede data = nuevo.buscar(sede);
             System.out.println(data.getUbicacion());
-            
-            
-            if(tipo=="Carro"){
+
+            if (tipo == "Carro") {
                 tarifa = data.getTarifaC();
-            }else if(tipo=="Moto"){
+            } else if (tipo == "Moto") {
                 tarifa = data.getTarifaM();
             }
-            
+
         } catch (Exception e) {
             System.out.print(e);
         }
@@ -117,23 +118,23 @@ public class VListar extends javax.swing.JPanel {
         //variables
         String propietario = tfPropietario.getText();
         String placa = tfPlaca.getText();
-        String foto=txtRuta.getText();       
+        String foto = txtRuta.getText();
         String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
 
         if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
-            JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");            
+            JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();
             limpiarCombo();
             cargarSede();
         } else {
-            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo,tarifa);
+            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo, tarifa);
             if (aja.agregar()) {
                 calcularPrecios();
-                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo"+tarifa);               
+                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo" + tarifa);
                 limpiartabla();
                 limpiarCombo();
                 cargarSede();
-                
+
             } else {
                 System.err.println("Error");
             }
@@ -443,6 +444,7 @@ public class VListar extends javax.swing.JPanel {
             txtRuta.setText(turno);
             lbfoto.setIcon(new ImageIcon(turno));
             //tfFecha.setText((hora));
+            tipoVehiculo = (String) TablaDatos.getValueAt(fila, 3);
         }
     }//GEN-LAST:event_TablaDatosMouseClicked
 
@@ -484,13 +486,18 @@ public class VListar extends javax.swing.JPanel {
             limpiarCombo();
             cargarSede();
         } else {
-            if (negocio.eliminar(id) == true) {
-                JOptionPane.showMessageDialog(null, "el ingreso del vehiculo fue eliminado");
-                limpiartabla();
-                limpiarCombo();
-                cargarSede();
-            } else {
-                JOptionPane.showMessageDialog(null, "error");
+            String propietario = tfPropietario.getText();
+            String placa = tfPlaca.getText();
+            NVehiculoRetirado retirado = new NVehiculoRetirado(propietario, placa, foto, tipoVehiculo);
+            if (retirado.RetirarVehiculo(id)) {
+                if (negocio.eliminar(id) == true) {
+                    JOptionPane.showMessageDialog(null, "el ingreso del vehiculo fue eliminado");
+                    limpiartabla();
+                    limpiarCombo();
+                    cargarSede();
+                } else {
+                    JOptionPane.showMessageDialog(null, "error");
+                }
             }
         }
     }

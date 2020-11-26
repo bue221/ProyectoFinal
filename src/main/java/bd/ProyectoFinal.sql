@@ -22,7 +22,8 @@ NombrePropietario varchar(40),
 placa varchar(10),
 foto varchar(400),
 tipo varchar(20),
-fecha dateTime default now()
+fecha dateTime default now(),
+tarifa double
 );
 
 

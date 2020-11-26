@@ -205,7 +205,7 @@ public class NVehiculo {
 
     public boolean RetirarVehiculo(int id){
         try {
-            String query = "insert into Vehiculos(NombrePropietario,placa,foto,tipo) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo + "')";
+            String query = "insert into VehiculoRetirado(NombrePropietario,placa,foto,tipo) values ('" + nombrePropietario + "','" + placa + "','" + foto + "','" + tipo + "')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 
