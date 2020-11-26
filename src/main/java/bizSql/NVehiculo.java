@@ -24,6 +24,7 @@ public class NVehiculo {
     private String foto;
     private String tipo;
     private Date fechaEntrada;
+    private String valorMin;
     private int id;
 
     public NVehiculo() {
@@ -36,13 +37,24 @@ public class NVehiculo {
         this.tipo = tipo;
     }
 
-    public NVehiculo(String nombrePropietario, String foto, String tipo, Date fechaEntrada, int id) {
+    public NVehiculo(String nombrePropietario, String placa, String foto, String tipo, String valorMin) {
         this.nombrePropietario = nombrePropietario;
+        this.placa = placa;
         this.foto = foto;
         this.tipo = tipo;
-        this.fechaEntrada = fechaEntrada;
-        this.id = id;
+        this.valorMin = valorMin;
     }
+    
+
+    public String getValorMin() {
+        return valorMin;
+    }
+
+    public void setValorMin(String valorMin) {
+        this.valorMin = valorMin;
+    }
+
+
 
     public String getNombrePropietario() {
         return nombrePropietario;
@@ -161,37 +173,6 @@ public class NVehiculo {
             System.out.print("Error: " + e);
             return null;
         }
-    }
-    
-    /* no se como implementarlo
-    public ArrayList<NVehiculo> listar(){
-                try {
-            String sql = "select * from Vehiculos placa="+placa;
-            Connection con = new Conexion().getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            ResultSet res = st.executeQuery();
-            
-            ArrayList<NVehiculo> lista = new ArrayList();
-            
-            
-            while(res.next()){              
-                NVehiculo vehiculo = new NVehiculo();
-                vehiculo.setNombrePropietario(res.getString("NombrePropietario"));
-                vehiculo.setFoto(res.getString("foto"));
-                vehiculo.setId(res.getInt("id"));
-                vehiculo.setFechaEntrada(res.getDate("fecha"));
-                vehiculo.setTipo(res.getString("tipo"));
-                
-                lista.add(vehiculo);
-            }
-            
-            return lista;
-            
-        } catch (SQLException e) {
-            System.out.print("Error: " + e);
-            return null;
-        }
-    }
-*/
+    }       
 
 }
