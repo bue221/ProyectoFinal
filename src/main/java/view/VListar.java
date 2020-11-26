@@ -77,10 +77,10 @@ public class VListar extends javax.swing.JPanel {
             NSede nuevo = new NSede();
             NSede data = nuevo.buscar(sede);
             System.out.println(data.getUbicacion());
-
-            if (tipo == "Carro") {
+            
+            if("Carro".equals(tipo)){
                 tarifa = data.getTarifaC();
-            } else if (tipo == "Moto") {
+            }else if("Moto".equals(tipo)){
                 tarifa = data.getTarifaM();
             }
 
