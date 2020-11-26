@@ -7,7 +7,7 @@ package view;
 
 import bizSql.NVehiculo;
 import java.sql.Date;
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  *
@@ -105,24 +105,29 @@ public class VRetirar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        try{
+        
         NVehiculo negocio = new NVehiculo();
         NVehiculo data = negocio.buscar(tfPlacaRetiro.getText());
-        
+        System.out.print(data);
         int id = data.getId();
         String foto = data.getFoto();
         Date fechaEntrada = data.getFechaEntrada();
         
-        JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo"+id);
+        JOptionPane.showMessageDialog(this, "se agrego el ingreso del vehiculo"+id);
+        }catch(Exception e){
+            System.out.print(e);
+        }
     }//GEN-LAST:event_button1ActionPerformed
 
     private void tfPlacaRetiroInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tfPlacaRetiroInputMethodTextChanged
-        NVehiculo negocio = new NVehiculo();
+        /*NVehiculo negocio = new NVehiculo();
         NVehiculo data = negocio.buscar(tfPlacaRetiro.getText());
         
         int id = data.getId();
         String foto = data.getFoto();
         Date fechaEntrada = data.getFechaEntrada();
-        lbfoto.setIcon(new ImageIcon(foto));
+        lbfoto.setIcon(new ImageIcon(foto));*/
     }//GEN-LAST:event_tfPlacaRetiroInputMethodTextChanged
 
 

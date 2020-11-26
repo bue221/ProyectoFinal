@@ -131,7 +131,7 @@ public class NVehiculo {
     
     public NVehiculo buscar(String placa) {
         try {
-            String sql = "select * from Vehiculos placa="+placa;
+            String sql = "select * from Vehiculos where placa="+placa;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet res = st.executeQuery();
