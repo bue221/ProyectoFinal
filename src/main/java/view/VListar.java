@@ -12,6 +12,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -47,19 +48,19 @@ public class VListar extends javax.swing.JPanel {
 
     void cargarSede() {
         //mysql
-        Conexion con = new Conexion();
+        Conexion coln = new Conexion();
         Connection coon;
         Statement sta;
         ResultSet res;
         String sql2 = "Select * from Sede";
         try {
-            coon = con.getConnection();
+            coon = coln.getConnection();
             sta = coon.createStatement();
             res = sta.executeQuery(sql2);
             while (res.next()) {
                 comboSede.addItem(res.getString("Id"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.print(e);
         }
 
@@ -67,10 +68,11 @@ public class VListar extends javax.swing.JPanel {
 
     void calcularPrecios() {
         int sede = Integer.parseInt(comboSede.getItemAt(comboSede.getSelectedIndex()));
+        System.out.print(sede);
         try {
-            NSede negocio = new NSede();
-            NSede data = negocio.buscar(sede);
-            JOptionPane.showMessageDialog(this,"data"+ data.getTarifaC());
+            NSede nuevo = new NSede();
+            NSede data = nuevo.buscar(sede);
+            System.out.println(data.getUbicacion());
         } catch (Exception e) {
             System.out.print(e);
         }
@@ -110,17 +112,18 @@ public class VListar extends javax.swing.JPanel {
 
         if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
+            calcularPrecios();
             limpiartabla();
             limpiarCombo();
             cargarSede();
         } else {
             NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo);
             if (aja.agregar()) {
-                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");
+                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");               
                 limpiartabla();
                 limpiarCombo();
                 cargarSede();
-                calcularPrecios();
+                
             } else {
                 System.err.println("Error");
             }

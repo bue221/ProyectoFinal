@@ -131,9 +131,9 @@ public class NSede {
         }
     }
     
-    public NSede buscar(int id) {
+    public NSede buscar(int idn) {
         try {
-            String sql = "select * from Sede where Id = "+id;
+            String sql = "select * from Sede where Id = "+idn;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet res = st.executeQuery();
@@ -141,9 +141,9 @@ public class NSede {
             NSede sede = new NSede();
             
             while(res.next()){                
-                
+                sede.setId(res.getInt("Id"));
                 sede.setNombre(res.getString("Nombre"));
-                sede.setEspacio(res.getInt("Espacio"));
+                sede.setEspacio(res.getInt("Espacios"));
                 sede.setTarifaC(res.getDouble("TarifaC"));
                 sede.setTarifaM(res.getDouble("TarifaM"));
                 sede.setUbicacion(res.getString("Ubicacion"));
