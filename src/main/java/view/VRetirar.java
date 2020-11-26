@@ -35,15 +35,15 @@ public class VRetirar extends javax.swing.JPanel {
         tfPlacaRetiro = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        button1 = new java.awt.Button();
+        btnBuscar = new java.awt.Button();
         lbfoto = new javax.swing.JLabel();
 
         tfPlacaRetiro.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
         tfPlacaRetiro.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 tfPlacaRetiroInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -54,12 +54,12 @@ public class VRetirar extends javax.swing.JPanel {
 
         jLabel2.setText("Placa");
 
-        button1.setBackground(new java.awt.Color(255, 51, 0));
-        button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setLabel("Retirar");
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setBackground(new java.awt.Color(255, 51, 0));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setLabel("Retirar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -76,7 +76,7 @@ public class VRetirar extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(190, 190, 190)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(223, 223, 223)
                         .addComponent(jLabel2))
@@ -100,14 +100,17 @@ public class VRetirar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-
-        try{
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+         
+        String placa = tfPlacaRetiro.getText();
+        NVehiculo vehiculo = new NVehiculo();
+        vehiculo.buscarReg(placa);
+        /*try{
         
         NVehiculo negocio = new NVehiculo();
         NVehiculo data = negocio.buscar(tfPlacaRetiro.getText());
@@ -119,8 +122,8 @@ public class VRetirar extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "se agrego el ingreso del vehiculo"+id);
         }catch(Exception e){
             System.out.print(e);
-        }
-    }//GEN-LAST:event_button1ActionPerformed
+        }*/
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tfPlacaRetiroInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tfPlacaRetiroInputMethodTextChanged
         /*NVehiculo negocio = new NVehiculo();
@@ -134,7 +137,7 @@ public class VRetirar extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button1;
+    private java.awt.Button btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbfoto;

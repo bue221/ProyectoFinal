@@ -44,6 +44,14 @@ public class NVehiculo {
         this.tipo = tipo;
         this.valorMin = valorMin;
     }
+
+    public NVehiculo(String nombrePropietario, String foto, String tipo, Date fechaEntrada, String valorMin) {
+        this.nombrePropietario = nombrePropietario;
+        this.foto = foto;
+        this.tipo = tipo;
+        this.fechaEntrada = fechaEntrada;
+        this.valorMin = valorMin;
+    }
     
 
     public String getValorMin() {
@@ -159,12 +167,13 @@ public class NVehiculo {
             
             NVehiculo vehiculo = new NVehiculo();
             
-            while(res.next()){                
-                vehiculo.setNombrePropietario(res.getString("NombrePropietario"));
-                vehiculo.setFoto(res.getString("foto"));
+            while(res.next()){  
                 vehiculo.setId(res.getInt("id"));
-                vehiculo.setFechaEntrada(res.getDate("fecha"));
+                vehiculo.setNombrePropietario(res.getString("NombrePropietario"));
+                vehiculo.setPlaca(res.getString("placa"));
+                vehiculo.setFoto(res.getString("foto"));
                 vehiculo.setTipo(res.getString("tipo"));
+                vehiculo.setFechaEntrada(res.getDate("fecha"));               
             }
             
             return vehiculo;
@@ -173,6 +182,15 @@ public class NVehiculo {
             System.out.print("Error: " + e);
             return null;
         }
-    }       
+    } 
+    public boolean buscarReg(String placa){
+        String sql = "select*from Vehiculos"+"where placa='"+placa+"'";
+        try{
+            
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
+        }
+    }
 
 }
