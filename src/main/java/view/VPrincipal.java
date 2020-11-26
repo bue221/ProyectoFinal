@@ -29,7 +29,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public VPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        setSize(960, 600);
+        setSize(1250, 600);
 
         listar = new VListar();
         listar.setBounds(300, 0, 600, 460);
@@ -47,7 +47,7 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
 
         trabajador = new VTrabajador();
-        trabajador.setBounds(300, 0, 600, 460);
+        trabajador.setBounds(300, 0, 950, 400);
         add(trabajador);
         trabajador.setVisible(false);
 

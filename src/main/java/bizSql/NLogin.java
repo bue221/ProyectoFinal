@@ -12,7 +12,8 @@ public class NLogin {
     private int Id;
     private String Nombre;
     private String Apellido;
-    private String Cargo = "Cliente";
+    private String Cargo;
+    private String Turno;
     private String Correo;
     private String Contraseña;
     
@@ -26,12 +27,25 @@ public class NLogin {
         this.Contraseña = Contraseña;
     }
 
-    public NLogin(String Nombre, String Apellido,String Cargo, String Correo, String Contraseña) {
+    public NLogin(String Nombre, String Apellido, String Cargo, String Turno, String Correo, String Contraseña) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
+        this.Cargo = Cargo;
+        this.Turno = Turno;
         this.Correo = Correo;
         this.Contraseña = Contraseña;
     }
+
+    
+
+    public String getTurno() {
+        return Turno;
+    }
+
+    public void setTurno(String Turno) {
+        this.Turno = Turno;
+    }
+    
 
     public String getCargo() {
         return Cargo;
@@ -83,7 +97,7 @@ public class NLogin {
     
     public boolean agregar() {
         try {
-            String query = "insert into Usuario(Nombre,Apellido,Cargo,Correo,Contraseña) values ('" + Nombre + "','" + Apellido + "','"+Cargo+"','" + Correo + "','" + Contraseña + "')";
+            String query = "insert into Usuario(Nombre,Apellidos,Cargo,Turno,Correo,Contraseña) values ('" + Nombre + "','" + Apellido + "','"+Cargo+"','"+Turno+"','" + Correo + "','" + Contraseña + "')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 
@@ -96,6 +110,60 @@ public class NLogin {
             return false;
         }
     }
+    
+    public boolean eliminar(int Id) {
+        try {
+            String sql = "delete from Usuario where Id=" + Id;
+            Connection con = new Conexion().getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            int res = st.executeUpdate();
+
+            return res == 1;
+        } catch (SQLException e) {
+            System.out.print("Error: " + e);
+            return false;
+        }
+    }
+    public boolean modificar(int Id) {
+        try {
+            String sql = "update Usuario set Nombre='"+Nombre+"', Apellidos='"+Apellido+"',Cargo='"+Cargo+"',Turno='"+Turno+"',Correo='"+Correo+"',Contraseña='"+Contraseña+"' where Id="+Id;
+            Connection con = new Conexion().getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            int res = st.executeUpdate();
+
+            return res == 1;
+        } catch (SQLException e) {
+            System.out.print("Error: " + e);
+            return false;
+        }
+    }
+    public NLogin buscar(int Id) {
+        try {
+            String sql = "select * from Usuario Id=" + Id;
+            Connection con = new Conexion().getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+
+            NLogin usuario = new NLogin();
+
+            while (res.next()) {
+                usuario.setId(res.getInt("Id"));
+                usuario.setNombre(res.getString("Nombre"));
+                usuario.setApellido(res.getString("Apellidos"));
+                usuario.setCargo(res.getString("Cargo"));
+                usuario.setTurno(res.getString("Turno"));
+                usuario.setCorreo(res.getString("Correo"));
+                usuario.setContraseña(res.getString("Contraseña"));
+            }
+
+            return usuario;
+
+        } catch (SQLException e) {
+            System.out.print("Error: " + e);
+            return null;
+        }
+    }
+    
     public boolean login() {
         try {
             String sql = "select Id, Correo, Contraseña from Usuario where Id="+Id;

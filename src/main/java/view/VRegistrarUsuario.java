@@ -24,13 +24,14 @@ public class VRegistrarUsuario extends javax.swing.JFrame {
        String Apellido=txtApellidos.getText();
        String Correo=txtUsuario.getText();
        String Contraseña=txtContraseña.getText();
-       String Cargo = "Cliente";       
+       String Cargo = "Cliente";  
+       String Turno = "NA";
        
        if(Nombre.equals("") || Apellido.equals("") || Correo.equals("") || Contraseña.equals("")){
            JOptionPane.showMessageDialog(null, "Debes ingresar informacion en todos los campos");
        }else{
-           NLogin login = new NLogin(Nombre, Apellido, Cargo, Correo, Contraseña);
-           if(login.agregar()){
+           NLogin usuario = new NLogin(Nombre, Apellido, Cargo, Turno, Correo, Contraseña);
+           if(usuario.agregar()){
                JOptionPane.showMessageDialog(null, "Usuario creado con exito");
            }else{
                System.err.println("Error");
@@ -120,7 +121,7 @@ public class VRegistrarUsuario extends javax.swing.JFrame {
                                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(btnRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(57, Short.MAX_VALUE))

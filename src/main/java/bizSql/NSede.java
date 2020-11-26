@@ -83,7 +83,7 @@ public class NSede {
     //metodos del crud
     public boolean agregar() {
         try {
-            String query = "insert into Sede(Nombre,Espacio, Ubicacion ,TarifaC, tarifaM) values ('" + nombre + "','" + espacio + "','" + ubicacion + "','" + tarifaC + "','" + tarifaM + "')";
+            String query = "insert into Sede(Nombre,Espacios, Ubicacion ,TarifaC, TarifaM) values ('" + nombre + "','" + espacio + "','" + ubicacion + "','" + tarifaC + "','" + tarifaM + "')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 
