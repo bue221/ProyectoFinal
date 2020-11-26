@@ -9,6 +9,7 @@ import bizSql.NVehiculo;
 import java.sql.Date;
 //import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author bue221
@@ -105,6 +106,7 @@ public class VRetirar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+<<<<<<< HEAD
         try{
         
         NVehiculo negocio = new NVehiculo();
@@ -117,6 +119,19 @@ public class VRetirar extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "se agrego el ingreso del vehiculo"+id);
         }catch(Exception e){
             System.out.print(e);
+=======
+        try {
+            NVehiculo negocio = new NVehiculo();
+            NVehiculo data = negocio.buscar(Integer.parseInt(tfPlacaRetiro.getText()));
+
+            int id = data.getId();
+            String foto = data.getFoto();
+            Date fechaEntrada = data.getFechaEntrada();
+
+            JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo" + id);
+        } catch (Exception e) {
+            System.err.println(e);
+>>>>>>> 1d433fff76863b90492cc99446413cb59962f661
         }
     }//GEN-LAST:event_button1ActionPerformed
 
