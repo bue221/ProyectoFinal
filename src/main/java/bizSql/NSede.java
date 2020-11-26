@@ -131,9 +131,9 @@ public class NSede {
         }
     }
     
-    public NSede buscar(String nombre) {
+    public NSede buscar(int id) {
         try {
-            String sql = "select * from Sede Nombre = "+nombre;
+            String sql = "select * from Sede where Id = "+id;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet res = st.executeQuery();

@@ -5,6 +5,7 @@
  */
 package view;
 
+import bizSql.NSede;
 import bizSql.NVehiculo;
 import conex.Conexion;
 import java.io.File;
@@ -28,7 +29,7 @@ public class VListar extends javax.swing.JPanel {
     Conexion con = new Conexion();
     Connection cn;
     Statement st;
-    ResultSet rs;    
+    ResultSet rs;
     DefaultTableModel modelo;
     //id y instancia del negocio
     int id;
@@ -39,11 +40,11 @@ public class VListar extends javax.swing.JPanel {
      * Creates new form VListar
      */
     public VListar() {
-        initComponents();        
+        initComponents();
         listar();
         cargarSede();
     }
-    
+
     void cargarSede() {
         //mysql
         Conexion con = new Conexion();
@@ -56,24 +57,35 @@ public class VListar extends javax.swing.JPanel {
             sta = coon.createStatement();
             res = sta.executeQuery(sql2);
             while (res.next()) {
-                comboSede.addItem(res.getString("Nombre"));
+                comboSede.addItem(res.getString("Id"));
             }
         } catch (Exception e) {
             System.out.print(e);
         }
-        
+
     }
-    
+
+    void calcularPrecios() {
+        int sede = Integer.parseInt(comboSede.getItemAt(comboSede.getSelectedIndex()));
+        try {
+            NSede negocio = new NSede();
+            NSede data = negocio.buscar(sede);
+            JOptionPane.showMessageDialog(this,"data"+ data.getTarifaC());
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+    }
+
     void listar() {
-        String sql = "Select * from Vehiculos";        
+        String sql = "Select * from Vehiculos";
         try {
             cn = con.getConnection();
             st = cn.createStatement();
-            rs = st.executeQuery(sql);            
-            
+            rs = st.executeQuery(sql);
+
             Object[] vehiculos = new Object[6];
             modelo = (DefaultTableModel) TablaDatos.getModel();
-            
+
             while (rs.next()) {
                 vehiculos[0] = rs.getString("Id");
                 vehiculos[1] = rs.getString("NombrePropietario");
@@ -88,40 +100,43 @@ public class VListar extends javax.swing.JPanel {
             System.out.print(e);
         }
     }
-    
+
     void Agregar() {
         //variables
         String propietario = tfPropietario.getText();
         String placa = tfPlaca.getText();
         //String foto=txtRuta.getText();       
         String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
-        
+
         if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();
             limpiarCombo();
+            cargarSede();
         } else {
-            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo);            
+            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo);
             if (aja.agregar()) {
                 JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");
                 limpiartabla();
                 limpiarCombo();
+                cargarSede();
+                calcularPrecios();
             } else {
                 System.err.println("Error");
             }
         }
-        
+
     }
-    
+
     void limpiartabla() {
         for (int i = 1; i <= TablaDatos.getRowCount(); i++) {
             i = i - i;
             modelo.removeRow(i);
-            
+
         }
     }
-    
-    void limpiarCombo(){
+
+    void limpiarCombo() {
         comboSede.removeAllItems();
         comboSede.addItem("Seleccione");
     }
@@ -388,7 +403,7 @@ public class VListar extends javax.swing.JPanel {
 
     private void TablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDatosMouseClicked
         int fila = TablaDatos.getSelectedRow();
-        
+
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Vehiculo no seleccionado");
         } else {
@@ -406,25 +421,27 @@ public class VListar extends javax.swing.JPanel {
             //tfFecha.setText((hora));
         }
     }//GEN-LAST:event_TablaDatosMouseClicked
-    
+
     void modificar() {
         //variables
         String propietario = tfPropietario.getText();
         String placa = tfPlaca.getText();
         //String foto=txtRuta.getText();       
         String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
-        
+
         if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();
             limpiarCombo();
+            cargarSede();
         } else {
             NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo);
-            
+
             if (aja.modificar(id)) {
                 JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
                 limpiartabla();
                 limpiarCombo();
+                cargarSede();
             } else {
                 System.err.println("Error:");
             }
@@ -437,17 +454,19 @@ public class VListar extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
             limpiartabla();
             limpiarCombo();
+            cargarSede();
         } else {
             if (negocio.eliminar(id) == true) {
                 JOptionPane.showMessageDialog(null, "el ingreso del vehiculo fue eliminado");
                 limpiartabla();
                 limpiarCombo();
+                cargarSede();
             } else {
                 JOptionPane.showMessageDialog(null, "error");
             }
         }
     }
-    
+
     void nuevo() {
         txtId.setText("");
         tfPlaca.setText("");
