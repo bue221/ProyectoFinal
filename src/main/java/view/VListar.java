@@ -23,88 +23,109 @@ import javax.swing.table.DefaultTableModel;
  * @author bue221
  */
 public class VListar extends javax.swing.JPanel {
-    
+
     //mysql
-    Conexion con=new Conexion();
+    Conexion con = new Conexion();
     Connection cn;
     Statement st;
-    ResultSet rs;
-    ResultSet res;
+    ResultSet rs;    
     DefaultTableModel modelo;
     //id y instancia del negocio
     int id;
     String foto;
     NVehiculo negocio = new NVehiculo();
-    
+
     /**
      * Creates new form VListar
      */
     public VListar() {
         initComponents();        
         listar();
+        cargarSede();
     }
     
-     void listar(){
-       String sql="Select * from Vehiculos";
-       String sql2 ="Select * from Sede";
-       try{
-           cn=con.getConnection();
-           st=cn.createStatement();
-           rs=st.executeQuery(sql);
-           res = st.executeQuery(sql2);
-           
-           Object[]vehiculos = new Object[6];
-           modelo=(DefaultTableModel)TablaDatos.getModel();
-           
-           while (res.next()){
-               comboSede.addItem(res.getString("Nombre"));
-           }
-           
-           while (rs.next()){
-               vehiculos[0]= rs.getString("Id");
-               vehiculos[1]= rs.getString("NombrePropietario");
-               vehiculos[2]= rs.getString("placa");
-               vehiculos[3]= rs.getString("tipo");
-               vehiculos[4] = rs.getDate("fecha");
-               vehiculos[5] = rs.getString("foto");
-               modelo.addRow(vehiculos);
-           }
-           TablaDatos.setModel(modelo);
-       }catch (Exception e){
-           System.out.print(e);
-       }
-   }
-   
-   void Agregar(){
-       //variables
-       String propietario=tfPropietario.getText();
-       String placa=tfPlaca.getText();
-       //String foto=txtRuta.getText();       
-       String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
-       
-       if(propietario.equals("")|| placa.equals("") || foto.equals("") || tipo.equals("Seleccione")){
+    void cargarSede() {
+        //mysql
+        Conexion con = new Conexion();
+        Connection coon;
+        Statement sta;
+        ResultSet res;
+        String sql2 = "Select * from Sede";
+        try {
+            coon = con.getConnection();
+            sta = coon.createStatement();
+            res = sta.executeQuery(sql2);
+            while (res.next()) {
+                comboSede.addItem(res.getString("Nombre"));
+            }
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+        
+    }
+    
+    void listar() {
+        String sql = "Select * from Vehiculos";        
+        try {
+            cn = con.getConnection();
+            st = cn.createStatement();
+            rs = st.executeQuery(sql);            
+            
+            Object[] vehiculos = new Object[6];
+            modelo = (DefaultTableModel) TablaDatos.getModel();
+            
+            while (rs.next()) {
+                vehiculos[0] = rs.getString("Id");
+                vehiculos[1] = rs.getString("NombrePropietario");
+                vehiculos[2] = rs.getString("placa");
+                vehiculos[3] = rs.getString("tipo");
+                vehiculos[4] = rs.getDate("fecha");
+                vehiculos[5] = rs.getString("foto");
+                modelo.addRow(vehiculos);
+            }
+            TablaDatos.setModel(modelo);
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+    }
+    
+    void Agregar() {
+        //variables
+        String propietario = tfPropietario.getText();
+        String placa = tfPlaca.getText();
+        //String foto=txtRuta.getText();       
+        String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
+        
+        if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();
-        }else{
-           NVehiculo aja = new NVehiculo( propietario, placa, foto, tipo );           
-           if(aja.agregar()){
-               JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");
-               limpiartabla();
-           }else{
+            limpiarCombo();
+        } else {
+            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo);            
+            if (aja.agregar()) {
+                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");
+                limpiartabla();
+                limpiarCombo();
+            } else {
                 System.err.println("Error");
-           }
-       }
-       
-   }
-   
-   void limpiartabla(){
-       for(int i=1;i<=TablaDatos.getRowCount();i++){
-            i=i-i;
-           modelo.removeRow(i);
-          
-       }
-   }
+            }
+        }
+        
+    }
     
+    void limpiartabla() {
+        for (int i = 1; i <= TablaDatos.getRowCount(); i++) {
+            i = i - i;
+            modelo.removeRow(i);
+            
+        }
+    }
+    
+    void limpiarCombo(){
+        comboSede.removeAllItems();
+        comboSede.addItem("Seleccione");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -220,7 +241,7 @@ public class VListar extends javax.swing.JPanel {
 
         jLabel8.setText("Sede");
 
-        comboSede.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin items" }));
+        comboSede.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -315,7 +336,7 @@ public class VListar extends javax.swing.JPanel {
                                 .addComponent(jButton4))
                             .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -336,11 +357,11 @@ public class VListar extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         //selecciona ruta absoluta de la imagen
         JFileChooser jf = new JFileChooser();
-        FileNameExtensionFilter fil = new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif");
+        FileNameExtensionFilter fil = new FileNameExtensionFilter("JPG, PNG & GIF", "jpg", "png", "gif");
         jf.setFileFilter(fil);
         jf.setCurrentDirectory(new File("Fotos"));
         int el = jf.showOpenDialog(this);
-        if(el == JFileChooser.APPROVE_OPTION){
+        if (el == JFileChooser.APPROVE_OPTION) {
             foto = jf.getSelectedFile().getPath();
             txtRuta.setText(jf.getSelectedFile().getAbsolutePath());
             lbfoto.setIcon(new ImageIcon(jf.getSelectedFile().getAbsolutePath()));
@@ -386,43 +407,48 @@ public class VListar extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TablaDatosMouseClicked
     
-    void modificar(){
+    void modificar() {
         //variables
-       String propietario=tfPropietario.getText();
-       String placa= tfPlaca.getText();
-       //String foto=txtRuta.getText();       
-       String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
-       
-       if(propietario.equals("")|| placa.equals("") || foto.equals("") || tipo.equals("Seleccione")){
+        String propietario = tfPropietario.getText();
+        String placa = tfPlaca.getText();
+        //String foto=txtRuta.getText();       
+        String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
+        
+        if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();
-        }else{
-           NVehiculo aja = new NVehiculo( propietario, placa, foto,tipo);
-           
-           if(aja.modificar(id)){
-               JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
-               limpiartabla();
-           }else{
+            limpiarCombo();
+        } else {
+            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo);
+            
+            if (aja.modificar(id)) {
+                JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
+                limpiartabla();
+                limpiarCombo();
+            } else {
                 System.err.println("Error:");
-           }
+            }
         }
     }
-    void eliminar(){
-        int filaSeleccionado=TablaDatos.getSelectedRow();
-        if(filaSeleccionado==-1){
+
+    void eliminar() {
+        int filaSeleccionado = TablaDatos.getSelectedRow();
+        if (filaSeleccionado == -1) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
             limpiartabla();
-        }else{
-            if(negocio.eliminar(id)== true){
+            limpiarCombo();
+        } else {
+            if (negocio.eliminar(id) == true) {
                 JOptionPane.showMessageDialog(null, "el ingreso del vehiculo fue eliminado");
                 limpiartabla();
-            }else{
+                limpiarCombo();
+            } else {
                 JOptionPane.showMessageDialog(null, "error");
             }
         }
     }
     
-    void nuevo(){
+    void nuevo() {
         txtId.setText("");
         tfPlaca.setText("");
         tfPropietario.setText("");
