@@ -29,6 +29,7 @@ public class VListar extends javax.swing.JPanel {
     Connection cn;
     Statement st;
     ResultSet rs;
+    ResultSet res;
     DefaultTableModel modelo;
     //id y instancia del negocio
     int id;
@@ -45,12 +46,20 @@ public class VListar extends javax.swing.JPanel {
     
      void listar(){
        String sql="Select * from Vehiculos";
+       String sql2 ="Select * from Sede";
        try{
            cn=con.getConnection();
            st=cn.createStatement();
-           rs=st.executeQuery(sql);          
+           rs=st.executeQuery(sql);
+           res = st.executeQuery(sql2);
+           
            Object[]vehiculos = new Object[6];
            modelo=(DefaultTableModel)TablaDatos.getModel();
+           
+           while (res.next()){
+               comboSede.addItem(res.getString("Nombre"));
+           }
+           
            while (rs.next()){
                vehiculos[0]= rs.getString("Id");
                vehiculos[1]= rs.getString("NombrePropietario");
@@ -126,7 +135,7 @@ public class VListar extends javax.swing.JPanel {
         txtId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboSede = new javax.swing.JComboBox<>();
 
         jLabel3.setText("Propietario");
 
@@ -211,7 +220,7 @@ public class VListar extends javax.swing.JPanel {
 
         jLabel8.setText("Sede");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin items" }));
+        comboSede.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin items" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -226,7 +235,7 @@ public class VListar extends javax.swing.JPanel {
                         .addGap(220, 220, 220)
                         .addComponent(jLabel8)
                         .addGap(39, 39, 39)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGap(275, 275, 275)
@@ -278,7 +287,7 @@ public class VListar extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -427,9 +436,9 @@ public class VListar extends javax.swing.JPanel {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox<String> comboSede;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
