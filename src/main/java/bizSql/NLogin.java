@@ -6,17 +6,18 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 public class NLogin {
     
     private int Id;
+    private int IdCargo;
     private String Nombre;
     private String Apellido;
-    private String Cargo;
-    private String Turno;
     private String Correo;
-    private String Contraseña;
-    
+    private String Clave;
+    private int IdRecolectado;
     
     public NLogin(){
         
@@ -24,35 +25,31 @@ public class NLogin {
 
     public NLogin( String Correo, String Contraseña) {
         this.Correo = Correo;
-        this.Contraseña = Contraseña;
+        this.Clave = Contraseña;
     }
 
-    public NLogin(String Nombre, String Apellido, String Cargo, String Turno, String Correo, String Contraseña) {
+    public NLogin(int IdCargo, String Nombre, String Apellido, String Correo, String Clave) {
+        this.IdCargo = IdCargo;
         this.Nombre = Nombre;
         this.Apellido = Apellido;
-        this.Cargo = Cargo;
-        this.Turno = Turno;
         this.Correo = Correo;
-        this.Contraseña = Contraseña;
+        this.Clave = Clave;
     }
 
-    
-
-    public String getTurno() {
-        return Turno;
+    public int getIdCargo() {
+        return IdCargo;
     }
 
-    public void setTurno(String Turno) {
-        this.Turno = Turno;
-    }
-    
-
-    public String getCargo() {
-        return Cargo;
+    public void setIdCargo(int IdCargo) {
+        this.IdCargo = IdCargo;
     }
 
-    public void setCargo(String Cargo) {
-        this.Cargo = Cargo;
+    public int getIdRecolectado() {
+        return IdRecolectado;
+    }
+
+    public void setIdRecolectado(int IdRecolectado) {
+        this.IdRecolectado = IdRecolectado;
     }
 
     public int getId() {
@@ -87,17 +84,17 @@ public class NLogin {
         this.Correo = Correo;
     }
 
-    public String getContraseña() {
-        return Contraseña;
+    public String getClave() {
+        return Clave;
     }
 
-    public void setContraseña(String Contraseña) {
-        this.Contraseña = Contraseña;
+    public void setClave(String Clave) {
+        this.Clave = Clave;
     }
     
     public boolean agregar() {
         try {
-            String query = "insert into Usuario(Nombre,Apellidos,Cargo,Turno,Correo,Contraseña) values ('" + Nombre + "','" + Apellido + "','"+Cargo+"','"+Turno+"','" + Correo + "','" + Contraseña + "')";
+            String query = "insert into Usuario(IdCargo,Nombre,Apellido,Correo,Clave) values ('"+ IdCargo +"','" + Nombre + "','" + Apellido + "','"+ Correo + "','" + Clave + "')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
 
@@ -111,69 +108,16 @@ public class NLogin {
         }
     }
     
-    public boolean eliminar(int Id) {
-        try {
-            String sql = "delete from Usuario where Id=" + Id;
-            Connection con = new Conexion().getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            int res = st.executeUpdate();
-
-            return res == 1;
-        } catch (SQLException e) {
-            System.out.print("Error: " + e);
-            return false;
-        }
-    }
-    public boolean modificar(int Id) {
-        try {
-            String sql = "update Usuario set Nombre='"+Nombre+"', Apellidos='"+Apellido+"',Cargo='"+Cargo+"',Turno='"+Turno+"',Correo='"+Correo+"',Contraseña='"+Contraseña+"' where Id="+Id;
-            Connection con = new Conexion().getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            int res = st.executeUpdate();
-
-            return res == 1;
-        } catch (SQLException e) {
-            System.out.print("Error: " + e);
-            return false;
-        }
-    }
-    public NLogin buscar(int Id) {
-        try {
-            String sql = "select * from Usuario Id=" + Id;
-            Connection con = new Conexion().getConnection();
-            PreparedStatement st = con.prepareStatement(sql);
-            ResultSet res = st.executeQuery();
-
-            NLogin usuario = new NLogin();
-
-            while (res.next()) {
-                usuario.setId(res.getInt("Id"));
-                usuario.setNombre(res.getString("Nombre"));
-                usuario.setApellido(res.getString("Apellidos"));
-                usuario.setCargo(res.getString("Cargo"));
-                usuario.setTurno(res.getString("Turno"));
-                usuario.setCorreo(res.getString("Correo"));
-                usuario.setContraseña(res.getString("Contraseña"));
-            }
-
-            return usuario;
-
-        } catch (SQLException e) {
-            System.out.print("Error: " + e);
-            return null;
-        }
-    }
-    
     public boolean login() {
         try {
-            String sql = "select Id, Correo, Contraseña from Usuario where Id="+Id;
+            String sql = "select Id, Correo, Clave from Usuario where Id="+Id;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet res = st.executeQuery();
             
             NLogin login = new NLogin();
             if(res.next()){
-                if(login.getContraseña().equals(res.getString(Contraseña))){
+                if(login.getClave().equals(res.getString(Clave))){
                     return false;
                 }else{
                     login.setId(res.getInt(1));
@@ -188,4 +132,87 @@ public class NLogin {
             return false;
         }
     }
+    /*public void consultar_Cargo(JComboBox cboxCargo){ 
+        try{
+            String query = "select Cargo from Cargo";
+            Connection con = new Conexion().getConnection();
+            PreparedStatement st = con.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            
+            //Llenamos el ComboBox           
+            cboxCargo.addItem("Seleccione un Cargo");
+            while(res.next()){
+                cboxCargo.addItem(res.getString("Cargo"));
+            }                     
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }       
+    }
+    public void consultar_Turno(JComboBox cboxTurno){ 
+        try{
+            String query = "select Turno from Cargo";
+            Connection con = new Conexion().getConnection();
+            PreparedStatement st = con.prepareStatement(query);
+            ResultSet res = st.executeQuery();
+            
+            //Llenamos el ComboBox           
+            cboxTurno.addItem("Seleccione un Turno");
+            while(res.next()){
+                cboxTurno.addItem(res.getString("turno"));
+            }                     
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }       
+    }
+    public int comprobar(String Cargo,String Turno){
+        int resultado=0;
+        String sql = "Select*from Cargo where Cargo='"+Cargo+"' and Turno='"+Turno+"'";
+        
+        try{
+            Connection con = new Conexion().getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+
+                if(res.next()){
+                resultado=1;
+                if(resultado == 1){  
+                    NPruebaVista recoger = new NPruebaVista();
+                    if(recoger.RecogerId(Cargo, Turno) > 0 ){  
+                        JOptionPane.showMessageDialog(null, "Correcto");
+                        return recoger.RecogerId(Cargo, Turno);
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Error de acceso. Usuario no registrado");
+                return 0;
+            }
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error"+ e.getMessage());
+            return 0;
+        }    
+        return 0;
+    }
+    
+    public int RecogerId(String Cargo,String Turno){
+        int resultado=0;
+        int IdCargo;
+        String sql = "Select Id from Cargo where Cargo='"+Cargo+"' and Turno='"+Turno+"'";
+        try{
+            Connection con = new Conexion().getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+            
+            if(res.next()){
+                JOptionPane.showMessageDialog(null, "Hasta aca correto");
+                IdCargo = res.getInt("Id");
+                IdRecolectado= IdCargo;
+            }
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Incorrecto");
+            JOptionPane.showMessageDialog(null, "Error"+ e.getMessage());
+            return 0;
+        }
+        return 0;
+    }*/
 }

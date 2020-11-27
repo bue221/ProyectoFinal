@@ -34,7 +34,7 @@ public class VLogin extends javax.swing.JFrame {
         int resultado=0;
         String Contraseña=String.valueOf(txPassword.getPassword());
         String Correo=txUser.getText();
-        String sql="select*from Usuario where Correo='"+Correo+"' and Contraseña='"+Contraseña+"' ";
+        String sql="select*from Usuario where Correo='"+Correo+"' and Clave='"+Contraseña+"' ";
         
         try{
             cn=con.getConnection();

@@ -21,7 +21,6 @@ public class VPrincipal extends javax.swing.JFrame {
     VUsuario usuario;
     VListar listar;
     VAcerca acerca;
-    VTrabajador trabajador;
     VSede sede;
 
     /**
@@ -66,11 +65,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setBounds(300, 0, 950, 460);
         add(retirar);
         retirar.setVisible(false);
-
-        trabajador = new VTrabajador();
-        trabajador.setBounds(300, 0, 950, 400);
-        add(trabajador);
-        trabajador.setVisible(false);
 
         sede = new VSede();
         sede.setBounds(300, 0, 600, 600);
@@ -288,7 +282,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(true);
         listar.setVisible(false);
         acerca.setVisible(false);
-        trabajador.setVisible(false);
         sede.setVisible(false);
         cargo.setVisible(false);
     }//GEN-LAST:event_btnRetirarVehiculoActionPerformed
@@ -313,7 +306,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
-        trabajador.setVisible(false);
         sede.setVisible(false);
         cargo.setVisible(false);
     }//GEN-LAST:event_btnUsuarioActionPerformed
@@ -326,7 +318,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
         listar.setVisible(true);
         acerca.setVisible(false);
-        trabajador.setVisible(false);
         sede.setVisible(false);
         cargo.setVisible(false);
     }//GEN-LAST:event_btnVehiculoActionPerformed
@@ -340,7 +331,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(true);
-        trabajador.setVisible(false);
         sede.setVisible(false);
         cargo.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
@@ -353,7 +343,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
-        trabajador.setVisible(false);
         sede.setVisible(false);
         cargo.setVisible(false);
     }//GEN-LAST:event_btnUsuarioMouseClicked
@@ -371,7 +360,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
-        trabajador.setVisible(false);
         cargo.setVisible(false);
         sede.setVisible(true);
     }//GEN-LAST:event_btnSedeActionPerformed
@@ -383,7 +371,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
-        trabajador.setVisible(false);
         cargo.setVisible(true);
         sede.setVisible(false);
     }//GEN-LAST:event_btnCargoActionPerformed
@@ -395,7 +382,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
-        trabajador.setVisible(false);
         cargo.setVisible(false);
         sede.setVisible(false);
     }//GEN-LAST:event_btnEstacionamientoActionPerformed
@@ -407,7 +393,6 @@ public class VPrincipal extends javax.swing.JFrame {
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
-        trabajador.setVisible(false);
         cargo.setVisible(false);
         sede.setVisible(false);
     }//GEN-LAST:event_btnTipoVehiculoActionPerformed
