@@ -125,8 +125,8 @@ public class VUsuario extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
             limpiartabla();
         }else{
-            NUsuario sede = new NUsuario();
-            if(sede.eliminar(Id)== true){
+            NUsuario usuario = new NUsuario();
+            if(usuario.eliminar(Id)== true){
                 JOptionPane.showMessageDialog(null, "el ingreso del vehiculo fue eliminado");
                 limpiartabla();
             }else{
@@ -331,7 +331,7 @@ public class VUsuario extends javax.swing.JPanel {
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(txtNuevo))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

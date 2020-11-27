@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import java.awt.Desktop;
@@ -17,7 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class VPrincipal extends javax.swing.JFrame {
 
+    VEstacionamiento estacionamiento;
     VRetirar1 retirar;
+    VCargo cargo;
     VUsuario usuario;
     VListar listar;
     VAcerca acerca;
@@ -31,6 +29,16 @@ public class VPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setSize(1250, 600);
+        
+        estacionamiento = new VEstacionamiento();
+        estacionamiento.setBounds(300,0,600,460);
+        add(estacionamiento);
+        estacionamiento.setVisible(false);
+        
+        cargo = new VCargo();
+        cargo.setBounds(300,0,600,460);
+        add(cargo);
+        cargo.setVisible(false);
         
         usuario = new VUsuario();
         usuario.setBounds(300,0,600,460);
@@ -79,6 +87,8 @@ public class VPrincipal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         btnUsuario = new javax.swing.JButton();
         btnSede = new javax.swing.JButton();
+        btnCargo = new javax.swing.JButton();
+        btnEstacionamiento = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -147,6 +157,26 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnCargo.setBackground(new java.awt.Color(34, 44, 63));
+        btnCargo.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
+        btnCargo.setForeground(new java.awt.Color(255, 255, 255));
+        btnCargo.setText("Cargo");
+        btnCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargoActionPerformed(evt);
+            }
+        });
+
+        btnEstacionamiento.setBackground(new java.awt.Color(34, 44, 63));
+        btnEstacionamiento.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
+        btnEstacionamiento.setForeground(new java.awt.Color(255, 255, 255));
+        btnEstacionamiento.setText("Estacionamiento");
+        btnEstacionamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstacionamientoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,6 +184,8 @@ public class VPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEstacionamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSede, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,16 +200,20 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(btnVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRetirarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRetirarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSede, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSede, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addComponent(btnCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEstacionamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Acerca del proyecto");
@@ -212,7 +248,7 @@ public class VPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 501, Short.MAX_VALUE))
+                .addGap(0, 524, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,12 +261,14 @@ public class VPrincipal extends javax.swing.JFrame {
     private void btnRetirarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarVehiculoActionPerformed
         // TODO add your handling code here:
 
+        estacionamiento.setVisible(false);
         usuario.setVisible(false);
         retirar.setVisible(true);
         listar.setVisible(false);
         acerca.setVisible(false);
         trabajador.setVisible(false);
         sede.setVisible(false);
+        cargo.setVisible(false);
     }//GEN-LAST:event_btnRetirarVehiculoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -247,43 +285,51 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
 
+        estacionamiento.setVisible(false);
         usuario.setVisible(true);
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
         trabajador.setVisible(false);
         sede.setVisible(false);
+        cargo.setVisible(false);
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
     private void btnVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVehiculoActionPerformed
 
+        estacionamiento.setVisible(false);
         usuario.setVisible(false);
         retirar.setVisible(false);
         listar.setVisible(true);
         acerca.setVisible(false);
         trabajador.setVisible(false);
         sede.setVisible(false);
+        cargo.setVisible(false);
     }//GEN-LAST:event_btnVehiculoActionPerformed
 
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
 
+        estacionamiento.setVisible(false);
         usuario.setVisible(false);
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(true);
         trabajador.setVisible(false);
         sede.setVisible(false);
+        cargo.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void btnUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioMouseClicked
 
+        estacionamiento.setVisible(false);
         usuario.setVisible(true);
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
         trabajador.setVisible(false);
         sede.setVisible(false);
+        cargo.setVisible(false);
     }//GEN-LAST:event_btnUsuarioMouseClicked
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
@@ -293,13 +339,37 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void btnSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSedeActionPerformed
+        estacionamiento.setVisible(false);
         usuario.setVisible(false);
         retirar.setVisible(false);
         listar.setVisible(false);
         acerca.setVisible(false);
         trabajador.setVisible(false);
+        cargo.setVisible(false);
         sede.setVisible(true);
     }//GEN-LAST:event_btnSedeActionPerformed
+
+    private void btnCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargoActionPerformed
+        estacionamiento.setVisible(false);
+        usuario.setVisible(false);
+        retirar.setVisible(false);
+        listar.setVisible(false);
+        acerca.setVisible(false);
+        trabajador.setVisible(false);
+        cargo.setVisible(true);
+        sede.setVisible(false);
+    }//GEN-LAST:event_btnCargoActionPerformed
+
+    private void btnEstacionamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstacionamientoActionPerformed
+        estacionamiento.setVisible(true);
+        usuario.setVisible(false);
+        retirar.setVisible(false);
+        listar.setVisible(false);
+        acerca.setVisible(false);
+        trabajador.setVisible(false);
+        cargo.setVisible(false);
+        sede.setVisible(false);
+    }//GEN-LAST:event_btnEstacionamientoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,6 +407,8 @@ public class VPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargo;
+    private javax.swing.JButton btnEstacionamiento;
     private javax.swing.JButton btnRetirarVehiculo;
     private javax.swing.JButton btnSede;
     private javax.swing.JButton btnUsuario;

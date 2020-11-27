@@ -2,7 +2,7 @@
 package view;
 
 import bizSql.NCargo;
-import bizSql.NUsuario;
+import bizSql.NEstacionamiento;
 import conex.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,9 +14,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author davida
  */
-public class VCargo extends javax.swing.JPanel {
-    
-    //MySql
+public class VEstacionamiento extends javax.swing.JPanel {
+
+   //MySql
     Conexion con=new Conexion();
     Connection cn;
     Statement st;
@@ -24,98 +24,91 @@ public class VCargo extends javax.swing.JPanel {
     DefaultTableModel modelo;
     
     int Id;
-    NCargo cargo = new NCargo();
-
-    public VCargo() {
+    NEstacionamiento estacionamiento = new NEstacionamiento();
+    
+    public VEstacionamiento() {
         initComponents();
         listar();
     }
-    
+
     private void limpiartabla(){
-       for(int i=1;i<=TablaCargo.getRowCount();i++){
+       for(int i=1;i<=TablaEstacionamiento.getRowCount();i++){
             i=i-i;
            modelo.removeRow(i); 
        }
     }
     void listar(){
-       String sql="Select * from Cargo";
+       String sql="Select * from Estacionamiento";
        try{
            cn=con.getConnection();
            st=cn.createStatement();
            rs=st.executeQuery(sql);
-           Object[]cargo = new Object[3];
-           modelo = (DefaultTableModel)TablaCargo.getModel();
+           Object[]estacionamiento = new Object[3];
+           modelo = (DefaultTableModel)TablaEstacionamiento.getModel();
            while (rs.next()){
-               cargo[0]=rs.getString("Id");
-               cargo[1]=rs.getString("Cargo");
-               cargo[2]=rs.getString("Turno");
-               modelo.addRow(cargo);
+               estacionamiento[0]=rs.getString("Id");
+               estacionamiento[1]=rs.getString("DisponibilidadMoto");
+               estacionamiento[2]=rs.getString("DisponibilidadCarro");
+               modelo.addRow(estacionamiento);
            }
-           TablaCargo.setModel(modelo);
+           TablaEstacionamiento.setModel(modelo);
        }catch (Exception e){
            
        }
    }
     void nuevo(){
         txtId.setText("");
-        txtCargo.setText("");
-        txtTurno.setText("");
+        txtMoto.setText("");
+        txtCarro.setText("");
     }
     
     void Agregar(){
        
-       String Cargo=txtCargo.getText();
-       String Turno=txtTurno.getText();  
+       int DisponibilidadMoto=Integer.parseInt(txtMoto.getText().toString());
+       int DisponibilidadCarro=Integer.parseInt(txtCarro.getText().toString());  
        
-       if(Cargo.equals("") || Turno.equals("")){
-           JOptionPane.showMessageDialog(null, "Debes ingresar informacion en todos los campos");
-           limpiartabla();
-       }else{
-          NCargo cargo = new NCargo(Cargo,Turno);
+          NEstacionamiento estacionamiento = new NEstacionamiento(DisponibilidadMoto,DisponibilidadCarro);
            
-           if(cargo.agregar()){
-               JOptionPane.showMessageDialog(null, "se agrego un Usuario");
+           if(estacionamiento.agregar()){
+               JOptionPane.showMessageDialog(null, "Se agrego un estacionamiento");
                limpiartabla();
            }else{
                System.err.println("Error");
            }
-       }
+       
        
    }
     void modificar(){
         //variables
-       String Cargo = txtCargo.getText();
-       String Turno = txtTurno.getText();      
+       int DisponibilidadMoto = Integer.parseInt(txtMoto.getText().toString());
+       int DisponibilidadCarro = Integer.parseInt(txtCarro.getText().toString());      
        
-       if(Cargo.equals("") || Turno.equals("")){
-            JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
-            limpiartabla();
-        }else{
-           NCargo cargo = new NCargo(Cargo,Turno);           
+        NEstacionamiento estacionamiento = new NEstacionamiento(DisponibilidadMoto,DisponibilidadCarro);          
            
-           if(cargo.modificar(Id)){
-               JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
+           if(estacionamiento.modificar(Id)){
+               JOptionPane.showMessageDialog(null, "El estacionamiento esta actualizado");
                limpiartabla();
            }else{
-                System.err.println("Error:");
+               System.err.println("Error:");
            }
-        }
     }
     void eliminar(){
-        int filaSeleccionado=TablaCargo.getSelectedRow();
+        int filaSeleccionado=TablaEstacionamiento.getSelectedRow();
         if(filaSeleccionado==-1){
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
             limpiartabla();
         }else{
-            NCargo cargo = new NCargo();
-            if(cargo.eliminar(Id)== true){
-                JOptionPane.showMessageDialog(null, "el ingreso del vehiculo fue eliminado");
+            NEstacionamiento estacionamiento = new NEstacionamiento();
+            if(estacionamiento.eliminar(Id)== true){
+                JOptionPane.showMessageDialog(null, "El estacionamiento fue eliminado");
                 limpiartabla();
             }else{
                 JOptionPane.showMessageDialog(null, "error");
             }
         }
     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -124,11 +117,11 @@ public class VCargo extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCargo = new javax.swing.JTextField();
+        txtMoto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtTurno = new javax.swing.JTextField();
+        txtCarro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaCargo = new javax.swing.JTable();
+        TablaEstacionamiento = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -136,7 +129,7 @@ public class VCargo extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("Gestionar Cargo");
+        jLabel1.setText("Gestionar Estacionamiento");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Id:");
@@ -145,28 +138,28 @@ public class VCargo extends javax.swing.JPanel {
         txtId.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel4.setText("Cargo:");
+        jLabel4.setText("Disponibilidad Moto:");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setText("Turno:");
+        jLabel5.setText("Disponibilidad Carro:");
 
-        TablaCargo.setModel(new javax.swing.table.DefaultTableModel(
+        TablaEstacionamiento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Cargo", "Turno"
+                "Id", "Disponibilidad Moto", "Disponibilidad Carro"
             }
         ));
-        TablaCargo.addMouseListener(new java.awt.event.MouseAdapter() {
+        TablaEstacionamiento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TablaCargoMouseClicked(evt);
+                TablaEstacionamientoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TablaCargo);
-        if (TablaCargo.getColumnModel().getColumnCount() > 0) {
-            TablaCargo.getColumnModel().getColumn(0).setMinWidth(50);
-            TablaCargo.getColumnModel().getColumn(0).setMaxWidth(60);
+        jScrollPane1.setViewportView(TablaEstacionamiento);
+        if (TablaEstacionamiento.getColumnModel().getColumnCount() > 0) {
+            TablaEstacionamiento.getColumnModel().getColumn(0).setMinWidth(50);
+            TablaEstacionamiento.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
         btnAgregar.setText("Agregar");
@@ -203,85 +196,67 @@ public class VCargo extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(111, 111, 111)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(43, 43, 43)
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(32, 32, 32)
+                            .addComponent(jLabel3)
+                            .addGap(4, 4, 4)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(21, 21, 21)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(btnAgregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNuevo))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(3, 3, 3)
-                                    .addComponent(txtTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(4, 4, 4)
-                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(29, 29, 29)
-                                    .addComponent(jLabel4)
-                                    .addGap(4, 4, 4)
-                                    .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(122, 122, 122)
-                            .addComponent(jLabel1))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addComponent(btnNuevo)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnNuevo))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void TablaCargoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaCargoMouseClicked
-        int fila = TablaCargo.getSelectedRow();
-
-        if(fila==-1){
-            JOptionPane.showMessageDialog(null, "Usuario no seleccionado");
-        }else{
-            Id = Integer.parseInt((String) TablaCargo.getValueAt(fila, 0).toString());
-            String Cargo=(String) TablaCargo.getValueAt(fila, 1);
-            String Turno=(String) TablaCargo.getValueAt(fila, 2);
-            
-            txtId.setText(""+ Id);
-            txtCargo.setText(""+Cargo);
-            txtTurno.setText(Turno);  
-        }
-    }//GEN-LAST:event_TablaCargoMouseClicked
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         Agregar();
         listar();
-        nuevo();
+        nuevo();       
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -300,9 +275,26 @@ public class VCargo extends javax.swing.JPanel {
         nuevo();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void TablaEstacionamientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaEstacionamientoMouseClicked
+        int fila = TablaEstacionamiento.getSelectedRow();
+
+        if(fila==-1){
+            JOptionPane.showMessageDialog(null, "Usuario no seleccionado");
+        }else{
+            Id = Integer.parseInt((String) TablaEstacionamiento.getValueAt(fila, 0).toString());
+            int DisponibilidadMoto = Integer.parseInt((String) TablaEstacionamiento.getValueAt(fila, 1).toString());
+            int DisponibilidadCarro = Integer.parseInt((String) TablaEstacionamiento.getValueAt(fila, 2).toString());
+            
+            
+            txtId.setText(""+ Id);
+            txtMoto.setText(""+DisponibilidadMoto);
+            txtCarro.setText(""+DisponibilidadCarro);  
+        }
+    }//GEN-LAST:event_TablaEstacionamientoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaCargo;
+    private javax.swing.JTable TablaEstacionamiento;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
@@ -312,8 +304,8 @@ public class VCargo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtCargo;
+    private javax.swing.JTextField txtCarro;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtTurno;
+    private javax.swing.JTextField txtMoto;
     // End of variables declaration//GEN-END:variables
 }
