@@ -82,6 +82,7 @@ public class NUsuario {
     
     //Crud Para la tabla Usuario
     public boolean agregar() {
+        
         try {
             String query = "insert into Usuario(IdCargo,Nombre,Apellido,Correo,Clave) values ('" + IdCargo + "','" + Nombre +
                     "','" + Apellido + "','" + Correo + "','"+ Clave +"')";

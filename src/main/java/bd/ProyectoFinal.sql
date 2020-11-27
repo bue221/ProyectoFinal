@@ -60,6 +60,7 @@ Cargo varchar(60),
 Turno varchar(90)
 );
 insert into Cargo(Cargo,Turno) values ('Administrador','Lun-Vier: 7:00am-2:00pm');
+
 create Table TipoVehiculo
 (
 Id int auto_increment primary key,
@@ -90,9 +91,19 @@ ALTER TABLE Factura
 ADD CONSTRAINT FK_FacturaSede
 FOREIGN KEY (IdSede) REFERENCES Sede(Id);
 
+Select u.Id,u.Nombre,u.Apellido,u.Correo,c.Cargo,c.Turno From Usuario As u
+inner join Cargo As c ON u.IdCargo=c.Id;
 
+CREATE VIEW 
+vista_usuario AS 
+Select u.Id,u.Nombre,u.Apellido,u.Correo,c.Cargo,c.Turno From Usuario As u
+inner join Cargo As c ON u.IdCargo=c.Id;
 
+select*from vista_usuario;
 
+select Turno from Cargo;
+
+select*from Cargo where Cargo='Administrador' and Turno='Lun-Vier: 7:00am-2:00pm';
 
 
 
