@@ -43,7 +43,7 @@ public class VUsuario extends javax.swing.JPanel {
        }
     }
     void listar(){
-       String sql="select * from vista_usuario;";
+       String sql="select * from vista_usuario";
        try{
            cn=con.getConnection();
            st=cn.createStatement();
