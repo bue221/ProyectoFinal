@@ -127,7 +127,7 @@ public class VListar extends javax.swing.JPanel {
             limpiarCombo();
             cargarSede();
         } else {
-            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo, tarifa);
+            /*NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo, tarifa);
             if (aja.agregar()) {
                 calcularPrecios();
                 JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo" + tarifa);
@@ -137,7 +137,7 @@ public class VListar extends javax.swing.JPanel {
 
             } else {
                 System.err.println("Error");
-            }
+            }*/
         }
 
     }
@@ -465,7 +465,7 @@ public class VListar extends javax.swing.JPanel {
             limpiarCombo();
             cargarSede();
         } else {
-            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo, tarifa);
+/*            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo, tarifa);
 
             if (aja.modificar(id)) {
                 JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
@@ -474,7 +474,7 @@ public class VListar extends javax.swing.JPanel {
                 cargarSede();
             } else {
                 System.err.println("Error:");
-            }
+            }*/
         }
     }
 

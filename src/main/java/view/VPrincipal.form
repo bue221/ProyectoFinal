@@ -80,12 +80,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="btnSede" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="btnTipoVehiculo" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="btnUsuario" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="btnEstacionamiento" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="btnCargo" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" pref="177" max="-2" attributes="0"/>
-                      <Component id="btnSede" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="jButton4" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="btnRetirarVehiculo" min="-2" pref="193" max="-2" attributes="0"/>
                       <Component id="btnVehiculo" alignment="1" min="-2" pref="193" max="-2" attributes="0"/>
@@ -106,9 +106,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnUsuario" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnSede" min="-2" pref="43" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCargo" min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnSede" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnEstacionamiento" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -183,23 +183,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnSede">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="3f" green="2c" red="22" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial Black" size="12" style="3"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Sedes"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSedeActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="btnCargo">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -267,6 +250,23 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTipoVehiculoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSede">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3f" green="2c" red="22" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Black" size="12" style="3"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Sedes"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSedeActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
