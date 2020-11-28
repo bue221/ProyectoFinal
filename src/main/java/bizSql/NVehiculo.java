@@ -159,7 +159,7 @@ public class NVehiculo {
         }
     }
     
-     public int buscar(int id) {
+     public NVehiculo buscarV(int id) {
         try {
             String sql = "select * from Vehiculo where Id="+id;
             Connection con = new Conexion().getConnection();
@@ -171,21 +171,18 @@ public class NVehiculo {
             while(res.next()){
                 
                 vehiculo.setId(res.getInt("Id"));
-                vehiculo.setIdUsuario(res.getInt("IdUsuario"));
-                vehiculo.setTipoVehiculo(res.getInt("TipoVehiculo"));
+                vehiculo.setIdSede(res.getInt("IdSede"));
+                vehiculo.setTipoVehiculo(res.getString("TipoVehiculo"));
                 vehiculo.setPropietario(res.getString("Propietario"));
                 vehiculo.setPlaca(res.getString("Placa"));
+                vehiculo.setFoto(res.getString("Foto"));
                 //Id = res.getInt("Id");
             }
             
-            if(Id > 0){
-                return Id;
-            }else{
-                return 0;
-            }
+            return vehiculo;
         } catch (SQLException e) {
             System.out.print("Error: " + e);
-            return 0;
+            return null;
         }
     }
 }

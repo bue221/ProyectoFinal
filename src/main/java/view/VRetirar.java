@@ -5,17 +5,28 @@
  */
 package view;
 
+import bizSql.NFactura;
 import bizSql.NVehiculo;
+import conex.Conexion;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
 //import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author bue221
  */
 public class VRetirar extends javax.swing.JPanel {
-
+    
+    //mysql
+    Conexion con = new Conexion();
+    Connection cn;
+    Statement st;
+    ResultSet rs;    
     /**
      * Creates new form VRetirar
      */
@@ -82,12 +93,11 @@ public class VRetirar extends javax.swing.JPanel {
                         .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(77, 77, 77)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(170, 170, 170)
+                        .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(76, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(170, 170, 170))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,16 +120,46 @@ public class VRetirar extends javax.swing.JPanel {
          
         String placa = tfPlacaRetiro.getText();
         NVehiculo vehiculo = new NVehiculo();
-        
+        //id
         int id = vehiculo.buscar(placa);
+        //consulta
         
         if(id > 0){
+            
+        //busca y trae datos
+        NVehiculo data = vehiculo.buscarV(id);
+        NFactura factura = new NFactura(data.getId());        
+        
+        if(factura.agregar()){
+        int idFactura = factura.calcularId(id);
+        String sql = "Select * from vista_factura where id ="+idFactura;
+
+        Object[] factura2 = new Object[5];
+        
+        try{
+        cn = con.getConnection();
+        st = cn.createStatement();
+        rs = st.executeQuery(sql);               
+         while (rs.next()) {
+                factura2[0] = rs.getString("id");
+                factura2[1] = rs.getString("placa");
+                factura2[2] = rs.getString("pago");
+                factura2[3] = rs.getString("FechaEntrada");
+                factura2[4] = rs.getDate("FechaSalida");                
+        }
+         System.out.print(factura2[2]);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        //elimina
         vehiculo.eliminar(id);
-            JOptionPane.showMessageDialog(null, "Vehiculo retirado");
+            JOptionPane.showMessageDialog(null, "Vehiculo retirado debe pagar $"+ factura2[2]);
         }else{
             JOptionPane.showMessageDialog(null, "Error"+id);
         }
-        
+        }else{
+            JOptionPane.showMessageDialog(null, "Error"+id);
+        }
         /*try{
         
         NVehiculo negocio = new NVehiculo();
