@@ -29,5 +29,6 @@ Aplicación para el control de ingreso y salida de usuarios y su posterior cobro
 - La vista de listar vehículos deberá contar con un título, una tabla para listar los datos botones para cerrar y buscar la información y modificar esta misma.
 - La vista retirar vehículo deberá contar con una jTextField para ingresar la placa del vehículo y un botón para confirmar el retiro del vehículo.
 
-
+# UML
+![imagen](https://github.com/bue221/ProyectoFinal/blob/main/umljava.png)
 
