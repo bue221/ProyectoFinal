@@ -34,10 +34,16 @@ create table Vehiculo
 Id int auto_increment primary key,
 IdUsuario int,
 IdSede int,
+FechaEntrada dateTime default now(),
 TipoVehiculo varchar(20),
 Propietario varchar(50),
-Placa varchar(50)
+Placa varchar(50),
+Foto varchar(2000)
 );
+
+drop table Vehiculo
+
+insert into Vehiculo (IdUsuario,IdSede, TipoVehiculo, Propietario, Placa, Foto) values(1,1,"carro","Andres","OGH776", "foto")
 
 create table Estacionamiento
 (
@@ -111,16 +117,12 @@ select * from vista_sede;
 
 CREATE VIEW 
 vista_vehiculo AS 
-Select s.id, s.NombreSede, TarifaM, TarifaC, s.Ubicacion, e.DisponibilidadMoto, e.DisponibilidadCarro From Sede As s
-inner join Estacionamiento As e ON s.IdEstacionamiento =e.Id;
+Select v.id, v.TipoVehiculo, if(v.TipoVehiculo = "Carro",  s.TarifaC, s.TarifaM ) as tarifa , v.Propietario, v.Placa, v.Foto, v.FechaEntrada  From Vehiculo As v
+inner join Sede As s ON v.IdSede = s.Id
+inner join Usuario As u ON v.IdUsuario = u.Id;
+
+drop view vista_vehiculo;
 
 select * from vista_vehiculo;
 
 select*from Cargo where Cargo='Administrador' and Turno='Lun-Vier: 7:00am-2:00pm';
-
-
-
-
-
-
-

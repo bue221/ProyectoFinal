@@ -11,22 +11,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author USER
  */
 public class NSede {
+
     private int id;
-    private String nombre;
-    private int espacios;
+    private String nombreSede;
+    private int idEstacionamiento;
     private double tarifaC;
     private double tarifaM;
     private String ubicacion;
 
-    public NSede(String nombre, int espacios, double tarifaC, double tarifaM, String ubicacion) {
-        this.nombre = nombre;
-        this.espacios = espacios;
+    public NSede(String nombreSede, int idEtacionamiento, double tarifaC, double tarifaM, String ubicacion) {
+        this.nombreSede = nombreSede;
+        this.idEstacionamiento = idEtacionamiento;
         this.tarifaC = tarifaC;
         this.tarifaM = tarifaM;
         this.ubicacion = ubicacion;
@@ -35,14 +35,12 @@ public class NSede {
     public NSede() {
     }
 
-    
-
-    public String getUbicacion() {
-        return ubicacion;
+    public int getIdEstacionamiento() {
+        return idEstacionamiento;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setIdEstacionamiento(int idEstacionamiento) {
+        this.idEstacionamiento = idEstacionamiento;
     }
 
     public int getId() {
@@ -51,6 +49,14 @@ public class NSede {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNombreSede() {
+        return nombreSede;
+    }
+
+    public void setNombreSede(String nombreSede) {
+        this.nombreSede = nombreSede;
     }
 
     public double getTarifaC() {
@@ -67,34 +73,25 @@ public class NSede {
 
     public void setTarifaM(double tarifaM) {
         this.tarifaM = tarifaM;
-    }    
-
-    public String getNombre() {
-        return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getUbicacion() {
+        return ubicacion;
     }
 
-    public int getEspacio() {
-        return espacios;
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
-    public void setEspacio(int espacios) {
-        this.espacios = espacios;
-    }    
-    
-    //metodos del crud
+    //metodos CRUD
+        
     public boolean agregar() {
         try {
-            
-            String query = "insert into Sede(Nombre,Espacios,TarifaC, TarifaM,Ubicacion) values ('" + nombre + "','" + espacios + "','" + tarifaC + "','" + tarifaM + "','" + ubicacion + "')";
+            String query = "insert into Sede(NombreSede,IdEstacionamiento,TarifaM, TarifaC,Ubicacion) values ('" + this.nombreSede + "','" + this.idEstacionamiento + "','" + this.tarifaM + "','" + this.tarifaC + "','" + ubicacion + "')";
             Connection con = new Conexion().getConnection();
             PreparedStatement sql = con.prepareStatement(query);
-
+            //ejecuta 
             int res = sql.executeUpdate();
-
             return res == 1;
 
         } catch (SQLException e) {
@@ -102,7 +99,7 @@ public class NSede {
             return false;
         }
     }
-
+    
     public boolean eliminar(int id) {
         try {
             String sql = "delete from Sede where Id=" + id;
@@ -119,7 +116,7 @@ public class NSede {
 
     public boolean modificar(int id) {
         try {
-            String sql = "update Sede set Nombre='" + nombre + "',Espacios='" + espacios + "',TarifaC='" + tarifaC + "',TarifaM='" + tarifaM + "',Ubicacion='" + ubicacion + "' where Id="+ id;
+            String sql = "update Sede set NombreSede='" + this.nombreSede + "',IdEstacionamiento='" + this.idEstacionamiento + "',TarifaM='" + tarifaM + "',TarifaC='" + tarifaC + "',Ubicacion='" + ubicacion + "' where Id="+ id;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             int res = st.executeUpdate();
@@ -130,22 +127,22 @@ public class NSede {
             return false;
         }
     }
-    
-    public NSede buscar(int idn) {
+            
+    /*public bizSql.NSede buscar(int id) {
         try {
             String sql = "select * from Sede where Id = "+id;
             Connection con = new Conexion().getConnection();
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet res = st.executeQuery();
             
-            NSede sede = new NSede();
+            bizSql.NSede sede = new bizSql.NSede();
             
             while(res.next()){                
                 sede.setId(res.getInt("Id"));
-                sede.setNombre(res.getString("Nombre"));
-                sede.setEspacio(res.getInt("Espacios"));
-                sede.setTarifaC(res.getDouble("TarifaC"));
-                sede.setTarifaM(res.getDouble("TarifaM"));
+                sede.setNombre(res.getString("NombreSede"));
+                sede.setEspacio(res.getInt("IdEstacionamiento"));
+                sede.setTarifaC(res.getDouble("TarifaM"));
+                sede.setTarifaM(res.getDouble("TarifaC"));
                 sede.setUbicacion(res.getString("Ubicacion"));
             }
             
@@ -155,6 +152,6 @@ public class NSede {
             System.out.print("Error: " + e);
             return null;
         }
-    }
-    
+    }*/
+
 }

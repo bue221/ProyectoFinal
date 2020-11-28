@@ -5,7 +5,7 @@
  */
 package view;
 
-import bizsql2.NSede;
+import bizSql.NSede;
 import conex.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -254,15 +254,16 @@ public class VSede extends javax.swing.JPanel {
                                         .addGap(16, 16, 16)))))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(231, 231, 231)
+                .addGap(223, 223, 223)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -290,7 +291,7 @@ public class VSede extends javax.swing.JPanel {
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnNuevo))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 

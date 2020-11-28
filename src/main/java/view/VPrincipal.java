@@ -16,7 +16,7 @@ public class VPrincipal extends javax.swing.JFrame {
     
     VPruebaVista tipo;
     VEstacionamiento estacionamiento;
-    VRetirar1 retirar;
+    VRetirar retirar;
     VCargo cargo;
     VUsuario usuario;
     VListar listar;
@@ -37,12 +37,12 @@ public class VPrincipal extends javax.swing.JFrame {
         tipo.setVisible(false);
         
         estacionamiento = new VEstacionamiento();
-        estacionamiento.setBounds(300,0,600,460);
+        estacionamiento.setBounds(300,0,800,460);
         add(estacionamiento);
         estacionamiento.setVisible(false);
         
         cargo = new VCargo();
-        cargo.setBounds(300,0,600,460);
+        cargo.setBounds(300,0,800,460);
         add(cargo);
         cargo.setVisible(false);
         
@@ -52,22 +52,22 @@ public class VPrincipal extends javax.swing.JFrame {
         usuario.setVisible(false);
 
         listar = new VListar();
-        listar.setBounds(300, 0, 600, 460);
+        listar.setBounds(300, 0, 800, 460);
         add(listar);
-        listar.setVisible(false);
+        listar.setVisible(true);
 
         acerca = new VAcerca();
-        acerca.setBounds(300, 0, 473, 460);
+        acerca.setBounds(300, 0, 800, 460);
         add(acerca);
         acerca.setVisible(false);
 
-        retirar = new VRetirar1();
+        retirar = new VRetirar();
         retirar.setBounds(300, 0, 950, 460);
         add(retirar);
         retirar.setVisible(false);
 
         sede = new VSede();
-        sede.setBounds(300, 0, 600, 600);
+        sede.setBounds(300, 0, 800, 460);
         add(sede);
         sede.setVisible(false);
     }
@@ -89,7 +89,6 @@ public class VPrincipal extends javax.swing.JFrame {
         btnCargo = new javax.swing.JButton();
         btnEstacionamiento = new javax.swing.JButton();
         btnUsuario = new javax.swing.JButton();
-        btnTipoVehiculo = new javax.swing.JButton();
         btnSede = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -169,16 +168,6 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnTipoVehiculo.setBackground(new java.awt.Color(34, 44, 63));
-        btnTipoVehiculo.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
-        btnTipoVehiculo.setForeground(new java.awt.Color(255, 255, 255));
-        btnTipoVehiculo.setText("Tipo de Vehiculo");
-        btnTipoVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTipoVehiculoActionPerformed(evt);
-            }
-        });
-
         btnSede.setBackground(new java.awt.Color(34, 44, 63));
         btnSede.setFont(new java.awt.Font("Arial Black", 3, 12)); // NOI18N
         btnSede.setForeground(new java.awt.Color(255, 255, 255));
@@ -197,7 +186,6 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSede, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEstacionamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,11 +212,9 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addComponent(btnSede, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEstacionamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Acerca del proyecto");
@@ -386,17 +372,6 @@ public class VPrincipal extends javax.swing.JFrame {
         sede.setVisible(false);
     }//GEN-LAST:event_btnEstacionamientoActionPerformed
 
-    private void btnTipoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoVehiculoActionPerformed
-        estacionamiento.setVisible(false);
-        tipo.setVisible(true);
-        usuario.setVisible(false);
-        retirar.setVisible(false);
-        listar.setVisible(false);
-        acerca.setVisible(false);
-        cargo.setVisible(false);
-        sede.setVisible(false);
-    }//GEN-LAST:event_btnTipoVehiculoActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -437,7 +412,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEstacionamiento;
     private javax.swing.JButton btnRetirarVehiculo;
     private javax.swing.JButton btnSede;
-    private javax.swing.JButton btnTipoVehiculo;
     private javax.swing.JButton btnUsuario;
     private javax.swing.JButton btnVehiculo;
     private javax.swing.JButton jButton4;

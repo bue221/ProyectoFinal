@@ -5,9 +5,8 @@
  */
 package view;
 
-import bizSql.NSede;
+
 import bizSql.NVehiculo;
-import bizSql.NVehiculoRetirado;
 import conex.Conexion;
 import java.io.File;
 import java.sql.Connection;
@@ -15,6 +14,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -35,9 +35,7 @@ public class VListar extends javax.swing.JPanel {
     DefaultTableModel modelo;
     //id y instancia del negocio
     int id;
-    String foto;
-    double tarifa;
-    String tipoVehiculo;
+    String foto;        
     NVehiculo negocio = new NVehiculo();
 
     /**
@@ -49,22 +47,23 @@ public class VListar extends javax.swing.JPanel {
     }
 
     void listar() {
-        String sql = "Select * from Vehiculos";
+        String sql = "Select * from vista_vehiculo";
         try {
             cn = con.getConnection();
             st = cn.createStatement();
             rs = st.executeQuery(sql);
 
-            Object[] vehiculos = new Object[6];
+            Object[] vehiculos = new Object[7];
             modelo = (DefaultTableModel) TablaDatos.getModel();
 
             while (rs.next()) {
                 vehiculos[0] = rs.getString("Id");
-                vehiculos[1] = rs.getString("NombrePropietario");
-                vehiculos[2] = rs.getString("placa");
-                vehiculos[3] = rs.getString("tipo");
-                vehiculos[4] = rs.getDate("fecha");
-                vehiculos[5] = rs.getString("foto");
+                vehiculos[1] = rs.getString("Propietario");
+                vehiculos[2] = rs.getString("Placa");
+                vehiculos[3] = rs.getString("TipoVehiculo");
+                vehiculos[4] = rs.getDate("FechaEntrada");
+                vehiculos[5] = rs.getString("Foto");
+                vehiculos[6] = rs.getString("tarifa");
                 modelo.addRow(vehiculos);
             }
             TablaDatos.setModel(modelo);
@@ -77,24 +76,21 @@ public class VListar extends javax.swing.JPanel {
         //variables
         String propietario = tfPropietario.getText();
         String placa = tfPlaca.getText();
-        String foto = txtRuta.getText();
-        String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
+        String foto1 = txtRuta.getText();
+        String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());    
+        int idSede = Integer.parseInt(txNSede.getText());
 
-        if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
+        if (propietario.equals("") || placa.equals("") || foto1.equals("") || tipo.equals("Seleccione")) {
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();                        
         } else {
-            /*NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo, tarifa);
-            if (aja.agregar()) {
-                calcularPrecios();
-                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo" + tarifa);
-                limpiartabla();
-                limpiarCombo();
-                cargarSede();
-
+            NVehiculo aja = new NVehiculo(idSede ,tipo,propietario, placa, foto1 );
+            if (aja.agregar()) {                
+                JOptionPane.showMessageDialog(null, "se agrego el ingreso del vehiculo");
+                limpiartabla();                
             } else {
                 System.err.println("Error");
-            }*/
+            }
         }
 
     }
@@ -168,6 +164,7 @@ public class VListar extends javax.swing.JPanel {
 
         jLabel5.setText("Tipo Vehiculo");
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Buscar Vehiculos");
 
         jLabel2.setText("Placa");
@@ -180,7 +177,7 @@ public class VListar extends javax.swing.JPanel {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel6.setText("Foto:");
 
         jButton4.setText("Buscar foto...");
@@ -236,62 +233,63 @@ public class VListar extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnNuevo)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEliminar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel7))
-                                    .addGap(26, 26, 26)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel4))
-                                        .addComponent(jLabel6))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jButton4)
-                                                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(18, 18, 18)
-                                            .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7))
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(txNSede, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButton4)
+                                            .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(txNSede, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(272, 272, 272))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(txNSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txNSede, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -329,7 +327,7 @@ public class VListar extends javax.swing.JPanel {
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnNuevo))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -375,19 +373,21 @@ public class VListar extends javax.swing.JPanel {
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Vehiculo no seleccionado");
         } else {
-            id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
-            String nombre = (String) TablaDatos.getValueAt(fila, 1);
-            String cargo = (String) TablaDatos.getValueAt(fila, 2);
-            String turno = (String) TablaDatos.getValueAt(fila, 5);
-            //Date hora =  (Date) TablaDatos.getValueAt(fila, 4);            
+            id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());            
+            String propietario = (String) TablaDatos.getValueAt(fila, 1);
+            String placa = (String) TablaDatos.getValueAt(fila, 2);
+            String tipo = (String) TablaDatos.getValueAt(fila, 3);
+            String foto1 = (String) TablaDatos.getValueAt(fila, 4);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");            
+            //String hora =  sdf.format(TablaDatos.getValueAt(fila, 5));            
 
             txtId.setText("" + id);
-            tfPlaca.setText(cargo);
-            tfPropietario.setText(nombre);
-            txtRuta.setText(turno);
-            lbfoto.setIcon(new ImageIcon(turno));
-            //tfFecha.setText((hora));
-            tipoVehiculo = (String) TablaDatos.getValueAt(fila, 3);
+            tfPlaca.setText(placa);
+            tfPropietario.setText(propietario);
+            txtRuta.setText(foto1);
+            lbfoto.setIcon(new ImageIcon(foto1));
+            comboTipo.setSelectedItem(tipo);
+            //tfFecha.setText((hora));            
         }
     }//GEN-LAST:event_TablaDatosMouseClicked
 
@@ -399,23 +399,23 @@ public class VListar extends javax.swing.JPanel {
         //variables
         String propietario = tfPropietario.getText();
         String placa = tfPlaca.getText();
-        //String foto=txtRuta.getText();       
+        String foto1 = txtRuta.getText();       
         String tipo = comboTipo.getItemAt(comboTipo.getSelectedIndex());
+        int idSede = Integer.parseInt(txNSede.getText());
 
         if (propietario.equals("") || placa.equals("") || foto.equals("") || tipo.equals("Seleccione")) {
             JOptionPane.showMessageDialog(null, "Todos los campos deben de ser completados");
             limpiartabla();      
         } else {
-/*            NVehiculo aja = new NVehiculo(propietario, placa, foto, tipo, tarifa);
+            
+            NVehiculo aja = new NVehiculo(idSede,tipo,propietario, placa, foto);
 
             if (aja.modificar(id)) {
                 JOptionPane.showMessageDialog(null, "el ingreso del vehiculo actualizado");
                 limpiartabla();
-                limpiarCombo();
-                cargarSede();
             } else {
                 System.err.println("Error:");
-            }*/
+            }
         }
     }
 
