@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author davida
  */
 public class NVehiculo {
-    
+  
     private int Id;
     private int IdUsuario;
     private int TipoVehiculo;
@@ -29,6 +29,8 @@ public class NVehiculo {
         this.Propietario = Propietario;
         this.Placa = Placa;
     }
+    
+    
 
     public int getId() {
         return Id;

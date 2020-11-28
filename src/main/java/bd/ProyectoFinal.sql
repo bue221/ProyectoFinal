@@ -78,6 +78,9 @@ FOREIGN KEY (IdEstacionamiento) REFERENCES Estacionamiento(Id);
 ALTER TABLE Vehiculo
 ADD CONSTRAINT FK_VehiculoUsuario
 FOREIGN KEY (IdUsuario) REFERENCES Usuario(Id);
+FOREIGN KEY (TipoVehiculo) REFERENCES TipoVehiculo(Id);
+
+drop alter table Vehiculo
 
 ALTER TABLE Usuario
 ADD CONSTRAINT FK_UsuarioCargo
@@ -99,12 +102,19 @@ vista_usuario AS
 Select u.Id,u.Nombre,u.Apellido,u.Correo,c.Cargo,c.Turno From Usuario As u
 inner join Cargo As c ON u.IdCargo=c.Id;
 
-select*from vista_usuario;
-
 select Turno from Cargo;
 
 CREATE VIEW 
 vista_sede AS 
+Select s.id, s.NombreSede, TarifaM, TarifaC, s.Ubicacion, e.DisponibilidadMoto, e.DisponibilidadCarro From Sede As s
+inner join Estacionamiento As e ON s.IdEstacionamiento =e.Id;
+
+select * from vista_sede 
+
+
+
+CREATE VIEW 
+vista_vehiculo AS 
 Select s.id, s.NombreSede, TarifaM, TarifaC, s.Ubicacion, e.DisponibilidadMoto, e.DisponibilidadCarro From Sede As s
 inner join Estacionamiento As e ON s.IdEstacionamiento =e.Id;
 
