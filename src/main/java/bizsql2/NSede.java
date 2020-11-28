@@ -32,6 +32,9 @@ public class NSede {
         this.ubicacion = ubicacion;
     }
 
+    public NSede() {
+    }
+
     public int getIdEstacionamiento() {
         return idEstacionamiento;
     }
