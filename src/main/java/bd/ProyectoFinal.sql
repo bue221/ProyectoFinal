@@ -103,6 +103,13 @@ select*from vista_usuario;
 
 select Turno from Cargo;
 
+CREATE VIEW 
+vista_sede AS 
+Select s.id, s.NombreSede, TarifaM, TarifaC, s.Ubicacion, e.DisponibilidadMoto, e.DisponibilidadCarro From Sede As s
+inner join Estacionamiento As e ON s.IdEstacionamiento =e.Id;
+
+select * from vista_sede 
+
 select*from Cargo where Cargo='Administrador' and Turno='Lun-Vier: 7:00am-2:00pm';
 
 
