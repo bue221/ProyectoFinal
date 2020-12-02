@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 //import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -26,7 +27,8 @@ public class VRetirar extends javax.swing.JPanel {
     Conexion con = new Conexion();
     Connection cn;
     Statement st;
-    ResultSet rs;    
+    ResultSet rs; 
+    String foto;
     /**
      * Creates new form VRetirar
      */
@@ -145,14 +147,16 @@ public class VRetirar extends javax.swing.JPanel {
                 factura2[1] = rs.getString("placa");
                 factura2[2] = rs.getString("pago");
                 factura2[3] = rs.getString("FechaEntrada");
-                factura2[4] = rs.getDate("FechaSalida");                
+                factura2[4] = rs.getDate("FechaSalida");
+                foto = rs.getString("Foto");
         }
          System.out.print(factura2[2]);
         }catch(Exception e){
             System.out.println(e);
         }
+        lbfoto.setIcon(new ImageIcon(foto));
         //elimina
-        vehiculo.eliminar(id);
+        vehiculo.eliminar(id);        
             JOptionPane.showMessageDialog(null, "Vehiculo retirado debe pagar $"+ factura2[2]);
         }else{
             JOptionPane.showMessageDialog(null, "Error"+id);
@@ -182,7 +186,7 @@ public class VRetirar extends javax.swing.JPanel {
         int id = data.getId();
         String foto = data.getFoto();
         Date fechaEntrada = data.getFechaEntrada();
-        lbfoto.setIcon(new ImageIcon(foto));*/
+        */
     }//GEN-LAST:event_tfPlacaRetiroInputMethodTextChanged
 
 
